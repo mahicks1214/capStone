@@ -26,5 +26,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists('spaces')
+    return knex.schema.dropTableIfExists('spaces_table')
 };
