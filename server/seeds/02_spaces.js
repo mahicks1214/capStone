@@ -13,14 +13,14 @@ exports.seed = async function(knex) {
 
   for (let i = 1; i <= 20; i++) {
     spaces.push({
-      roomName: faker.random.name(),
-      roomNumber: faker.datatype.number({ min: 1, max: 10 }),
-      buildingName: faker.random.name(),
-      buildingNumber: faker.datatype.number({ min: 1, max: 100 }),
-      equipment: faker.random.arrayElement(["Conference table", "Workstations and WiFi", "Chairs and projector"]),
-      seating: faker.datatype.boolean(),
-      classification: faker.random.arrayElement(["Confidential", "Unclassified", "Secret", "Top Secret"]),
-      netWork: faker.random.arrayElement(["NIPR", "SIPR", "JWICS", "Commercial", "NATO"]),
+      roomName: faker.person.zodiacSign(),
+      roomNumber: faker.location.buildingNumber(),
+      buildingName: faker.animal.bird(),
+      buildingNumber: faker.location.buildingNumber(),
+      equipment: faker.helpers.arrayElement(["Conference table", "Workstations and WiFi", "Chairs and projector"]),
+      seating: faker.number.int({min:5, max:100}),
+      classification: faker.helpers.arrayElement(["Confidential", "Unclassified", "Secret", "Top Secret"]),
+      netWork: faker.helpers.arrayElement(["NIPR", "SIPR", "JWICS", "Commercial", "NATO"]),
       isTrainer: faker.datatype.boolean(),
     });
   } 
