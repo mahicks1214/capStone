@@ -3,18 +3,23 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
+require('dotenv').config();
+const connectionString = process.env.DB_CONNECTION_STRING;
 module.exports = {
 
   development: {
     client: 'postgresql',
-    connection: {
-      host: '127.0.0.1',
-      database: 'capstone',
+    connection: connectionString || {
+      database: 'postgres',
       user: 'postgres',
       password: 'docker',
-      port: 5432
-     
     }
+
+      // // host: '127.0.0.1',
+      // database: 'postgres',
+      // user: 'postgres',
+      // password: 'docker',
+      // // port: 5432
   },
 
   staging: {
