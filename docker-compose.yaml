@@ -19,7 +19,7 @@ services:
     build: ./server
     
     ports:
-      - "1000:8081"
+      - "1000:8080"
     networks:
       - my_network
     environment:
