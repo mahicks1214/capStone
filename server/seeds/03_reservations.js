@@ -9,7 +9,7 @@ const {faker} = require('@faker-js/faker');
 exports.seed = async function(knex) {
   const reservations = [];
   // Deletes ALL existing entries
-  await knex("03_reservations").del();
+  await knex("reservations_table").del();
 
   for (let i = 1; i <= 20; i++) {   
     reservations.push({
@@ -22,5 +22,5 @@ exports.seed = async function(knex) {
       meetingEnd: faker.dateTime.dateTimeOffset(meetingStart, 1),
     });
   }
-  await knex("03_reservations").insert(reservations);
+  await knex("reservations_table").insert(reservations);
 };

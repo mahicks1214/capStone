@@ -8,7 +8,7 @@ const {faker} = require('@faker-js/faker');
 
 exports.seed = async function(knex) { 
   // Deletes ALL existing entries
-  await knex("02_spaces").del();
+  await knex("spaces_table").del();
   const spaces = [];
 
   for (let i = 1; i <= 20; i++) {
@@ -25,5 +25,5 @@ exports.seed = async function(knex) {
     });
   } 
 
-  await knex("02_spaces").insert(spaces);
+  await knex("spaces_table").insert(spaces);
 };
