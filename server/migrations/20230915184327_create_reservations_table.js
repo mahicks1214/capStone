@@ -6,9 +6,9 @@ exports.up = function(knex) {
     return knex.schema.createTable('reservations_table', table => {
         table.increments('id').primary;
         table.integer('userId').notNullable();
-        table.foreign('userId').references('users_table.userId');
+        table.foreign('userId').references('users_table.id');
         table.integer('roomId').notNullable();
-        table.foreign('roomId').references('spaces_table.roomId');        
+        table.foreign('roomId').references('spaces_table.id');        
         table.string('meetingName', 256).notNullable();
         table.string('meetingDescription', 256).notNullable();
         table.string('attendees', 256).notNullable();
