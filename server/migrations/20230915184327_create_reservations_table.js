@@ -10,10 +10,10 @@ exports.up = function(knex) {
         table.integer('roomId').notNullable();
         table.foreign('roomId').references('spaces_table.id');        
         table.string('meetingName', 256).notNullable();
-        table.string('meetingDescription', 256).notNullable();
-        table.string('attendees', 256).notNullable();
+        table.string('meetingDescription', 1056).notNullable();
+        table.string('attendees', 1056).notNullable();
         table.dateTime('meetingStart').notNullable();        
-        table.dateTime('meetingEnd').notNullable();
+        table.integer('meetingDuration').notNullable();
     })
 };
 

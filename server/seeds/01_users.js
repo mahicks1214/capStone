@@ -16,7 +16,7 @@ exports.seed = async function(knex) {
       email: faker.internet.email(),
       userName: faker.internet.userName(),
       rank: faker.person.jobTitle(),
-      passWord: faker.internet.passWord({length: 12}),
+      password: faker.internet.password({length: 12}),
       isAdmin: faker.datatype.boolean(),      
     });
 }
