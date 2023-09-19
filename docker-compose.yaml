@@ -1,0 +1,42 @@
+version: "3"
+services: 
+  db:
+    image: postgres
+    volumes:
+      - $HOME/docker/volumes/capstone:/var/lib/postgresql/data
+    networks:
+      - my_network
+    container_name: capstone
+    ports: 
+      - "5432:5432"
+    environment:
+      #DB_CONNECTION_STRING: postgres://postgres:docker@postgres:5432/postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+
+  server:
+    build: ./server
+    
+    ports:
+      - "1000:8080"
+    networks:
+      - my_network
+    environment:
+      DB_CONNECTION_STRING: postgres://postgres:docker@capstone:5432/postgres
+    depends_on:
+      - db
+
+
+  frontend:
+    build: ./client
+    ports:
+      - "1001:3000"
+    networks:
+      - my_network
+    depends_on:
+      - server
+
+networks:
+  my_network:
+    driver: bridge
