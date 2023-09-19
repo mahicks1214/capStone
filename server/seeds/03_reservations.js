@@ -27,7 +27,7 @@ exports.seed = async function(knex) {
       roomId: faker.number.int({min: 1, max:20}),
       meetingName: faker.hacker.verb() + " training",
       meetingDescription: faker.company.catchPhrase(),
-      attendees: faker.helpers.uniqueArray(faker.definitions.person.first_name, faker.number.int(30)),
+      attendees: faker.helpers.uniqueArray(faker.definitions.person.first_name, faker.number.int({min: 2, max: 8})),
       // meetingStart: dateStart,
       // meetingEnd: dateStart + dateOffset,
       meetingStart: faker.date.soon(),

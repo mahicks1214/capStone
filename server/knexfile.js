@@ -15,11 +15,11 @@ module.exports = {
       password: 'docker',
     }
 
-      // // host: '127.0.0.1',
+      // host: '127.0.0.1',
       // database: 'postgres',
       // user: 'postgres',
       // password: 'docker',
-      // // port: 5432
+      // port: 5432
   },
 
   staging: {
