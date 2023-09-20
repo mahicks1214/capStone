@@ -36,7 +36,7 @@ function fetchReservations(setupcomingSpaces) {
       return response.json();
     })
     .then((data) => {
-      setupcomingSpaces(data);
+      setupcomingSpaces(data.slice(0, 6));
     })
     .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
@@ -57,7 +57,7 @@ export default function LandingPage() {
       <CssBaseline />
       <AppBar position="relative">
         <Typography variant="h6" color="inherit" noWrap>
-          My changes here
+          TimeSpace Connections
         </Typography>
       </AppBar>
       <main>
@@ -77,21 +77,17 @@ export default function LandingPage() {
               color="text.primary"
               gutterBottom
             >
-              Album layout
+              Upcoming Reservations!
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Something short and leading about the collection below—its contents,
-              the creator, etc. Make it short and sweet, but not too short so folks
-              don&apos;t simply skip over it entirely.
+              Below are reservations that are coming up soon! Book now to lock in your TimeSpace!
             </Typography>
             <Stack
               sx={{ pt: 4 }}
               direction="row"
               spacing={2}
               justifyContent="center"
-            >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
+            >              
             </Stack>
           </Container>
         </Box>
@@ -99,7 +95,7 @@ export default function LandingPage() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {upcomingSpaces.map((upcomingSpaces) => (
-              <Grid item key={upcomingSpaces.id} xs={12} sm={6} md={4}>
+              <Grid item key={upcomingSpaces.id} xs={12} sm={6} md={3}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -113,10 +109,16 @@ export default function LandingPage() {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      {upcomingSpaces.meetingName}
+                      Training Course - {upcomingSpaces.meetingName}
                     </Typography>
                     <Typography>
-                      {upcomingSpaces.meetingDescription}
+                      In Room - {upcomingSpaces.roomId}
+                    </Typography>
+                    <Typography>
+                      Training Description - {upcomingSpaces.meetingDescription}
+                    </Typography>
+                    <Typography>
+                      Start Time - {upcomingSpaces.meetingStart}
                     </Typography>
                   </CardContent>
                   <CardActions>
