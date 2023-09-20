@@ -31,7 +31,7 @@ api.post('/users/create', (req, res) => {
             req.body.email,
             req.body.rank,
             req.body.isAdmin)
-        res.status(200).send(`${newUser} was added to the users_table in the database.`);
+        res.status(201).json(`${newUser.userName} was added to the users_table in the database.`);
     })
 })
 
@@ -119,7 +119,7 @@ api.post('/spaces/create', (req, res) => {
             req.body.classification,
             req.body.network,
             req.body.isTrainer)
-        res.status(200).send(`${newSpace} was added to the spaces_table in the database.`);
+        res.status(201).json(`${req.body.roomName} was added to the spaces_table in the database.`);
     })
 })
 
@@ -207,7 +207,7 @@ api.post('/reservations/create', (req, res) => {
             req.body.attendees,
             req.body.meetingStart,
             req.body.meetingDuration)
-        res.status(200).send(`${newReservation} was added to the reservations_table in the database.`);
+        res.status(201).json(`${req.body.meetingName} was added to the reservations_table in the database.`);
     })
 })
 
