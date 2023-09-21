@@ -3,7 +3,6 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  
     return knex.schema.createTable('spaces_table', table => {
         table.increments('id').primary;
         table.string('roomName', 256).notNullable();
@@ -15,11 +14,8 @@ exports.up = function(knex) {
         table.string('classification', 256).notNullable();
         table.string('netWork', 256).notNullable();
         table.boolean('isTrainer').notNullable();
-        
     })
 };
-
-
 
 /**
  * @param { import("knex").Knex } knex

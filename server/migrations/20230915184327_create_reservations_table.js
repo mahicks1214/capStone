@@ -17,8 +17,6 @@ exports.up = function(knex) {
     })
 };
 
-
-
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
@@ -27,8 +25,8 @@ exports.down = function(knex) {
     return knex.schema.alterTable('reservations_table', table => {
         table.dropForeign('userId');
         table.dropForeign('roomId');
-      })
-        .then(function (){
-            return knex.schema.dropTableIfExists('reservations_table');
-      })
+    })
+    .then(function (){
+        return knex.schema.dropTableIfExists('reservations_table');
+    })
 };
