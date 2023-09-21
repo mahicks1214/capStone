@@ -3,6 +3,8 @@ import { ContextProvider } from "./components/Context";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LandingPage from './components/LandingPage';
+import UserHomePage from './components/UserHomePage';
+import Rooms from './components/Rooms';
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/userhomepage" element={<UserHomePage />} />
+          <Route path="/rooms" element={<Rooms />} />
         </Routes>
       <Footer />
   </ContextProvider>
