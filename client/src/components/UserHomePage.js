@@ -16,7 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 function fetchReservations(setupcomingSpaces) {
-  fetch('http://localhost:8080/reservations')
+  fetch('http://localhost:8081/reservations')
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
