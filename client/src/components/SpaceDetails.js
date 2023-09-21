@@ -14,7 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 function fetchReservations(setSpaces) {
-    fetch('http://localhost:8081/spaces')
+    fetch('http://localhost:8081/spaces/:id')
         .then((response) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -71,7 +71,7 @@ export default function LandingPage() {
                 <Container sx={{ py: 8 }} maxWidth="md">
                     <Grid container spacing={4}>
                         {spaces.map((spaces) => (
-                            <Grid item key={spaces.id} xs={12} sm={6} md={3}>
+                            <Grid item key={spaces.id} xs={12} sm={6} md={4}>
                                 <Card
                                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                                 >
