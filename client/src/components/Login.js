@@ -27,10 +27,11 @@ const DefaultTheme = createTheme({
 
 export default function Login({ setAuth }) {
 
-    const navigate = useNavigate();
+    const nav = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        nav(`/`);
         console.log(JSON.stringify({
             username: data.get('username'),
             password: data.get('password'),
