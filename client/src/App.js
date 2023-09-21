@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
-import { ContextProvider } from "./Context";
-import Navbar from './Navbar';
-import Footer from './Footer';
-import LandingPage from './LandingPage';
+import { ContextProvider } from "./components/Context";
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import LandingPage from './components/LandingPage';
 
 function App() {
   return (

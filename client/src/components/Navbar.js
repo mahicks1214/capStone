@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import PostAddIcon from '@mui/icons-material/PostAdd';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -19,16 +19,16 @@ import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
 import DefaultTheme from './DefaultTheme';
 import { useThemeContext } from './Context';
-import LoginButton from './LoginButton';
+import LoginButton from '../LoginButton';
+import LogoutButton from '../LogoutButton';
 
 const pages = [
     <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>Items</Link>,
-    <Link to="/NewItem" style={{ textDecoration: "none", color: "inherit" }}>Add Item</Link>,
-    <Link to="/Login" style={{ textDecoration: "none", color: "inherit"}}>Login</Link>,
-    <Link to="/NewUser" style={{ textDecoration: "none", color: "inherit" }}>Sign Up</Link>
+    <Link to="/LandingPage" style={{ textDecoration: "none", color: "inherit" }}>Home</Link>,
+
 ];
 
-const settings = ['My Items', 'Account Settings', 'Logout'];
+const settings = ['Account Settings'];
 
 function ResponsiveAppBar() {
   const [auth, setAuth] = React.useState(true);
@@ -65,7 +65,7 @@ function ResponsiveAppBar() {
         <AppBar position="static" color="primary" enableColorOnDark>
         <Container maxWidth="xl">
             <Toolbar disableGutters>
-            <PostAddIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <RocketLaunchIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Link to='/' style={{ textDecoration: "none", color: "inherit" }}>
                 <Typography
                     variant="h6"
@@ -80,7 +80,7 @@ function ResponsiveAppBar() {
                         textDecoration: 'none',
                     }}
                 >
-                    I3 Solutions
+                    SpaceTime Collaborators
                 </Typography>
             </Link>
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -119,7 +119,7 @@ function ResponsiveAppBar() {
                 ))}
                 </Menu>
             </Box>
-            <PostAddIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            <RocketLaunchIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Link to='/' style={{ textDecoration: "none", color: "inherit" }}>
                 <Typography
                     variant="h5"
@@ -190,6 +190,7 @@ function ResponsiveAppBar() {
                     <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                 ))}
+                <LogoutButton />
                 </Menu>
             </Box>
             </Toolbar>

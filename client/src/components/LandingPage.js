@@ -11,23 +11,12 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import Link from '@mui/material/Link';
+import { ThemeProvider } from '@mui/material/styles';
+import DefaultTheme from './DefaultTheme';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-function fetchReservations(setupcomingSpaces) {
+function fetchReservations(setReservations) {
   fetch('http://localhost:8081/reservations')
     .then((response) => {
       if (!response.ok) {
@@ -36,24 +25,22 @@ function fetchReservations(setupcomingSpaces) {
       return response.json();
     })
     .then((data) => {
-      setupcomingSpaces(data.slice(0, 6));
+      setReservations(data.slice(0, 6));
     })
     .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
     });
 }
 
-const defaultTheme = createTheme();
-
 export default function LandingPage() {
-  const [upcomingSpaces, setupcomingSpaces] = useState([]);
+  const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
-    fetchReservations(setupcomingSpaces);
+    fetchReservations(setReservations);
   }, []);
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={DefaultTheme}>
       <CssBaseline />
       <AppBar position="relative">
         <Typography variant="h6" color="inherit" noWrap>
@@ -94,36 +81,39 @@ export default function LandingPage() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {upcomingSpaces.map((upcomingSpaces) => (
-              <Grid item key={upcomingSpaces.id} xs={12} sm={6} md={3}>
+            {reservations.map((reservations) => (
+              <Grid item key={reservations.id} xs={12}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
                   <CardMedia
                     component="div"
                     sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image={`https://source.unsplash.com/random?wallpapers&id=${upcomingSpaces.id}`}
+                      width: 200,
+                      height: 140,
+                      backgroundSize: 'cover'
+                  }}
+                    image={`https://source.unsplash.com/random?wallpapers&id=${reservations.id}`}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Training Course - {upcomingSpaces.meetingName}
+                      Training Course - {reservations.meetingName}
                     </Typography>
                     <Typography>
-                      In Room - {upcomingSpaces.roomId}
+                      In Room - {reservations.roomId}
                     </Typography>
                     <Typography>
-                      Training Description - {upcomingSpaces.meetingDescription}
+                      Training Description - {reservations.meetingDescription}
                     </Typography>
                     <Typography>
-                      Start Time - {upcomingSpaces.meetingStart}
+                      Start Time - {reservations.meetingStart}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
+                    <Stack direction="column" spacing={1}>
+                      <Button size="small">View</Button>
+                      <Button size="small">Edit</Button>
+                    </Stack>
                   </CardActions>
                 </Card>
               </Grid>
@@ -131,22 +121,6 @@ export default function LandingPage() {
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </Box>
-      {/* End footer */}
     </ThemeProvider>
   );
 }

@@ -9,9 +9,9 @@ WORKDIR /server
 COPY . /server
 
 
-# Make the container accept traffic on port 3000 at runtime from other
+# Make the container accept traffic on port 8080 at runtime from other
 # containers or the host if also published
-EXPOSE 8081
+EXPOSE 8080
 
 # Run this shell command at build time
 RUN npm install

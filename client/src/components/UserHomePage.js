@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AppBar from '@mui/material/AppBar';
+// import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,12 +11,11 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-// import Link from '@mui/material/Link';
-import { ThemeProvider } from '@mui/material/styles';
-import DefaultTheme from './DefaultTheme';
+import Link from '@mui/material/Link';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
-function fetchReservations(setReservations) {
+function fetchReservations(setupcomingSpaces) {
   fetch('http://localhost:8080/reservations')
     .then((response) => {
       if (!response.ok) {
@@ -25,28 +24,30 @@ function fetchReservations(setReservations) {
       return response.json();
     })
     .then((data) => {
-      setReservations(data.slice(0, 6));
+      setupcomingSpaces(data.slice(0, 6));
     })
     .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
     });
 }
 
+const defaultTheme = createTheme();
+
 export default function LandingPage() {
-  const [reservations, setReservations] = useState([]);
+  const [upcomingSpaces, setupcomingSpaces] = useState([]);
 
   useEffect(() => {
-    fetchReservations(setReservations);
+    fetchReservations(setupcomingSpaces);
   }, []);
 
   return (
-    <ThemeProvider theme={DefaultTheme}>
+    <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
+      {/* <AppBar position="relative">
         <Typography variant="h6" color="inherit" noWrap>
           TimeSpace Connections
         </Typography>
-      </AppBar>
+      </AppBar> */}
       <main>
         {/* Hero unit */}
         <Box
@@ -57,6 +58,32 @@ export default function LandingPage() {
           }}
         >
           <Container maxWidth="sm">
+
+
+            <Stack direction="row" justifyContent="space-between" spacing={2} sx={{ mt: 3, mb: 3 }}>
+              <Button
+                variant="contained"
+                component={Link} to="/LogIn"
+                sx={{
+                  fontSize: '1.5rem',
+                  px: 4,
+                  py: 2
+                }}
+              >
+                Book a Space!
+              </Button>
+              <Button
+                variant="contained"
+                component={Link} to="/CreateAccount"
+                sx={{
+                  fontSize: '1.5rem',
+                  px: 4,
+                  py: 2
+                }}
+              >
+                Admin
+              </Button>
+            </Stack>
             <Typography
               component="h1"
               variant="h2"
@@ -74,43 +101,46 @@ export default function LandingPage() {
               direction="row"
               spacing={2}
               justifyContent="center"
-            >              
+            >
             </Stack>
           </Container>
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {reservations.map((reservations) => (
-              <Grid item key={reservations.id} xs={12} sm={6} md={3}>
+            {upcomingSpaces.map((upcomingSpaces) => (
+              <Grid item key={upcomingSpaces.id} xs={12}>
                 <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                  sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
                 >
                   <CardMedia
                     component="div"
                     sx={{
-                      // 16:9
-                      pt: '56.25%',
+                      width: 200,
+                      height: 140,
+                      backgroundSize: 'cover'
                     }}
-                    image={`https://source.unsplash.com/random?wallpapers&id=${reservations.id}`}
+                    image={`https://source.unsplash.com/random?wallpapers&id=${upcomingSpaces.id}`}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Training Course - {reservations.meetingName}
+                      Training Course - {upcomingSpaces.meetingName}
                     </Typography>
                     <Typography>
-                      In Room - {reservations.roomId}
+                      In Room - {upcomingSpaces.roomId}
                     </Typography>
                     <Typography>
-                      Training Description - {reservations.meetingDescription}
+                      Training Description - {upcomingSpaces.meetingDescription}
                     </Typography>
                     <Typography>
-                      Start Time - {reservations.meetingStart}
+                      Start Time - {upcomingSpaces.meetingStart}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
+                    <Stack direction="column" spacing={1}>
+                      <Button size="small">View</Button>
+                      <Button size="small">Edit</Button>
+                    </Stack>
                   </CardActions>
                 </Card>
               </Grid>
@@ -121,3 +151,4 @@ export default function LandingPage() {
     </ThemeProvider>
   );
 }
+
