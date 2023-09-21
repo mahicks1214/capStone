@@ -102,8 +102,8 @@ export default function LandingPage() {
                                     </CardContent>
                                     <CardActions>
                                         <Stack direction="column" spacing={1}>
-                                            <Button size="small">View</Button>
                                             <Button size="small">Book this Room!</Button>
+                                            <Button size="small">Edit</Button>
                                         </Stack>
                                     </CardActions>
                                 </Card>
