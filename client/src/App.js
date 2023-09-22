@@ -5,6 +5,9 @@ import Footer from './components/Footer';
 import LandingPage from './components/LandingPage';
 import UserHomePage from './components/UserHomePage';
 import Rooms from './components/Rooms';
+import SpaceDetails from './components/SpaceDetails';
+import Reservation from './components/Reservation'; 
+import Admin from './components/Admin';
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/userhomepage" element={<UserHomePage />} />
           <Route path="/rooms" element={<Rooms />} />
+          <Route path="/spacedetails/:id" element={<SpaceDetails />} /> 
+          <Route path="/reservation/:id/:roomName" element={<Reservation />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       <Footer />
   </ContextProvider>

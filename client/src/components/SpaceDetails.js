@@ -11,10 +11,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link as RouterLink, useParams } from 'react-router-dom';
 
 
 function fetchReservations(setSpaces) {
-    fetch('http://localhost:8081/spaces')
+    fetch('http://localhost:8081/spaces/:id')
         .then((response) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -31,9 +32,10 @@ function fetchReservations(setSpaces) {
 
 const defaultTheme = createTheme();
 
+
 export default function LandingPage() {
     const [spaces, setSpaces] = useState([]);
-
+    const { id, roomName } = useParams();
     useEffect(() => {
         fetchReservations(setSpaces);
     }, []);
@@ -71,7 +73,7 @@ export default function LandingPage() {
                 <Container sx={{ py: 8 }} maxWidth="md">
                     <Grid container spacing={4}>
                         {spaces.map((spaces) => (
-                            <Grid item key={spaces.id} xs={12} sm={6} md={3}>
+                            <Grid item key={spaces.id} xs={12} sm={6} md={4}>
                                 <Card
                                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                                 >
@@ -102,8 +104,8 @@ export default function LandingPage() {
                                     </CardContent>
                                     <CardActions>
                                         <Stack direction="column" spacing={1}>
-                                            <Button size="small">View</Button>
                                             <Button size="small">Book this Room!</Button>
+                                            <Button size="small">Edit</Button>
                                         </Stack>
                                     </CardActions>
                                 </Card>
