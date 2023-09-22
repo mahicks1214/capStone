@@ -136,7 +136,7 @@ function ResponsiveAppBar() {
                         textDecoration: 'none',
                     }}
                 >
-                    I3 Solutions
+                    SpaceTime Collaborators
                 </Typography>
             </Link>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

@@ -15,11 +15,11 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/userhomepage" element={<UserHomePage />} />
-          <Route path="/rooms" element={<Rooms />} />
-          <Route path="/spacedetails/:id" element={<SpaceDetails />} /> 
-          <Route path="/reservation/:id/:roomName" element={<Reservation />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/:userId/userhomepage" element={<UserHomePage />} />
+          <Route path="/:userId/rooms" element={<Rooms />} />
+          <Route path="/:userId/spacedetails/:roomId" element={<SpaceDetails />} /> 
+          <Route path="/:userId/reservations/:roomId" element={<Reservation />} />
+          <Route path="/:userId/admin" element={<Admin />} />
         </Routes>
       <Footer />
   </ContextProvider>

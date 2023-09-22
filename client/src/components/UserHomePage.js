@@ -12,11 +12,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import DefaultTheme from './DefaultTheme';
 
 
 function fetchReservations(setupcomingSpaces) {
-  fetch('http://localhost:8081/reservations')
+  fetch('http://localhost:8080/reservations')
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -24,14 +25,12 @@ function fetchReservations(setupcomingSpaces) {
       return response.json();
     })
     .then((data) => {
-      setupcomingSpaces(data.slice(0, 6));
+      setupcomingSpaces(data);
     })
     .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
     });
 }
-
-const defaultTheme = createTheme();
 
 export default function LandingPage() {
   const [upcomingSpaces, setupcomingSpaces] = useState([]);
@@ -41,7 +40,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={DefaultTheme}>
       <CssBaseline />
       {/* <AppBar position="relative">
         <Typography variant="h6" color="inherit" noWrap>
