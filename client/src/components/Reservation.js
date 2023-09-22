@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     Container, Grid, Card, CardActions, CardContent,
     Button, Typography, TextField, Box
@@ -7,22 +7,22 @@ import { Link as RouterLink, useParams } from 'react-router-dom';
 
 
 const Reservation = ({ spaces }) => {
-    const { id, roomName } = useParams();
-    console.log("usParams on reservation page", id);
+    const { userId, roomId, roomName } = useParams();
     const [meetingStart, setMeetingStart] = useState('');
     const [meetingDuration, setMeetingDuration] = useState('');
     const [meetingName, setMeetingName] = useState('');
-    const [description, setDescription] = useState('');
+    const [meetingDescription, setMeetingDescription] = useState('');
     const [attendees, setAttendees] = useState(['']);
 
     const handleSubmit = () => {
         const data = {
-            // id: id,
-            meetingStart: meetingStart,
-            meetingDuration: meetingDuration,
+            userId: userId,
+            roomId: roomId,
             meetingName: meetingName,
-            description: description,
+            meetingDescription: meetingDescription,
             attendees: attendees,
+            meetingStart: meetingStart,
+            meetingDuration: meetingDuration
         };
 
         console.log('reservation data entry:', data);
@@ -122,8 +122,8 @@ const Reservation = ({ spaces }) => {
                                             label="Description"
                                             placeholder="Brief description of the meeting"
                                             variant="outlined"
-                                            value={description}
-                                            onChange={(e) => setDescription(e.target.value)}
+                                            value={meetingDescription}
+                                            onChange={(e) => setMeetingDescription(e.target.value)}
                                         />
                                     </Grid>
 
