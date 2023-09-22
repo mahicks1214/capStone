@@ -10,6 +10,9 @@ const knex = require("knex")(
     require("./knexfile.js")[process.env.NODE_ENV || "development"]
 );
 
+process.on('uncaughtException', function (err) {
+  console.log(err);
+});
 /* __________________________________________ */
 /* ---------- Root Route Endpoint ----------- */
 api.get('/', (req, res) => res.status(200).send(`CapStone API is listening at http://localhost:${port}!`));
@@ -103,9 +106,9 @@ api.delete("/users/delete/:id", (req, res) => {
 /* ___________________________________________ */
 /* ---------- Spaces API Endpoints ----------- */
 
-// [C]RUD API endpoint for creating a new space within the space_table in the database.
+// [C]RUD API endpoint for creating a new space within the spaces_table in the database.
 api.post('/spaces/create', (req, res) => {
-    knex('space_table')
+    knex('spaces_table')
       .insert(req.body)
       .then((newSpace) => {
         res.send(
