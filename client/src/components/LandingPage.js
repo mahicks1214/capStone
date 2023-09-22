@@ -17,7 +17,7 @@ import DefaultTheme from './DefaultTheme';
 
 
 function fetchReservations(setReservations) {
-  fetch('http://localhost:8081/reservations')
+  fetch('http://localhost:8080/reservations')
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');

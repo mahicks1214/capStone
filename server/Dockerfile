@@ -1,5 +1,5 @@
 # Specify the node base image with your desired version, e.g. node:<version>
-FROM node:alpine
+FROM alpine:3.18.3
 
 # Set and create the working directory for this app
 WORKDIR /server
