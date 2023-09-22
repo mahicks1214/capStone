@@ -6,6 +6,7 @@ import LandingPage from './components/LandingPage';
 import UserHomePage from './components/UserHomePage';
 import Rooms from './components/Rooms';
 import SpaceDetails from './components/SpaceDetails';
+import Reservation from './components/Reservation'; 
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/userhomepage" element={<UserHomePage />} />
           <Route path="/rooms" element={<Rooms />} />
           <Route path="/spacedetails/:id" element={<SpaceDetails />} /> 
+          <Route path="/reservation/:id/:roomName" element={<Reservation />} />
         </Routes>
       <Footer />
   </ContextProvider>

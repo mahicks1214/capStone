@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link as RouterLink, useParams } from 'react-router-dom';
 
 
 function fetchReservations(setSpaces) {
@@ -31,9 +32,10 @@ function fetchReservations(setSpaces) {
 
 const defaultTheme = createTheme();
 
+
 export default function LandingPage() {
     const [spaces, setSpaces] = useState([]);
-
+    const { id, roomName } = useParams();
     useEffect(() => {
         fetchReservations(setSpaces);
     }, []);
