@@ -28,7 +28,7 @@ api.post('/users/create', (req, res) => {
         res.send(
             req.body.id,
             req.body.firstName,
-            req.body.lastNumber,
+            req.body.lastName,
             req.body.userName,
             req.body.password,
             req.body.email,
@@ -68,11 +68,12 @@ const userId = req.params.id;
 
 // CR[U]D API endpoint for updating an existing user, selected by id
 api.patch("/users/update/:id", (req, res) => {
+  console.log(req.body);
     knex("users_table")
       .where({ id: req.params.id })
       .update({
         firstName: req.body.firstName,
-        lastName: req.body.lastame,
+        lastName: req.body.lastName,
         userName: req.body.userName,
         password: req.body.password,
         email: req.body.email,
@@ -81,9 +82,7 @@ api.patch("/users/update/:id", (req, res) => {
       })
       .then((updatedRows) => {
         if (updatedRows > 0) {
-          res
-            .status(200)
-            .send(`Updated ${req.body.userName}'s record`);
+          res.status(200).send(`Updated ${req.body.userName}'s record`);
         } else {
           res.status(404).send("Error 404 - Item not found!");
         }
@@ -278,6 +277,20 @@ api.delete("/reservations/delete/:id", (req, res) => {
       .then(res.status(200).send(`Reservation ${req.params.id} deleted`))
       .catch(res.status(400).send(`Unable to delete reservation!`));
 });
+
+
+// [C][R]UD API endpoint for reading a single user, selected by email, AND adding user if not present
+api.get("/users/email/:email", (req, res) => {
+  const userEmail = req.params.email;
+      knex('users_table')
+          .select("*")
+          .where({ email: userEmail })
+          .first()
+          .then((user) => { if (user) { res.send(user); } else { res.status(404).json({ message: "User not found" }) } })
+          .catch((error) => {
+          res.status(500).json({ error: error.message });
+      });
+  });
 
 /* ___________________________________ */
 /* ---------- API Listener ----------- */
