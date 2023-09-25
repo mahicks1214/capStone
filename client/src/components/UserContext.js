@@ -143,7 +143,7 @@ const UserContextProvider = ({ children }) => {
         //     rank: "",
         //     isAdmin: false
         // })
-    }, [isAuthenticated, currentUser])
+    }, [isAuthenticated])
     return (
         <UserContext.Provider value={{ currentUser, setCurrentUser }}>
             {children}

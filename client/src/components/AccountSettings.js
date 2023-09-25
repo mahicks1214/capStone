@@ -11,6 +11,8 @@ import { useState } from "react";
 import DefaultTheme from "./DefaultTheme";
 import { ThemeProvider } from '@emotion/react';
 import { useThemeContext } from './Context';
+import { useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // const colorPalette = {
 //     primaryDark: "#79955a",
@@ -33,37 +35,53 @@ import { useThemeContext } from './Context';
 
 export default function AccountSettings() {
     const navigate = useNavigate();
-    const { currentUser } = useUserContext();
+    const { currentUser, setCurrentUser } = useUserContext();
     const [isAdmin, setIsAdmin] = useState(currentUser.isAdmin);
     const label = { inputProps: { 'aria-label': 'Administrator?' } };
-    const handleChange = (event) => {
-        setIsAdmin(event.target.checked);
-    };
+    const handleChange = (event) => {setIsAdmin(event.target.checked); };
 
     const { themeMode, setThemeMode } = useThemeContext();
+
+    const { isAuthenticated, logout } = useAuth0();
+    const [returnedUser, setReturnedUser] = useState(currentUser);
+    useEffect(() => {
+        if (isAuthenticated === true) {
+            fetch(`http://localhost:8080/users/${currentUser.id}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    setReturnedUser(data)
+                })
+                .catch((error) => { console.log(error) })
+        }
+    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault();
         var formData = new FormData(event.currentTarget)
 
         let editAccount = {
-            firstName: (formData.get('firstName') === null ? currentUser.firstName :
-                formData.get('firstName').toString().length === 0 ? currentUser.firstName : formData.get('firstName')),
+            firstName: (formData.get('firstName') === null ? returnedUser.firstName :
+                formData.get('firstName').toString().length === 0 ? returnedUser.firstName : formData.get('firstName')),
 
-            lastName: (formData.get('lastName') === null ? currentUser.lastName :
-                formData.get('lastName').toString().length === 0 ? currentUser.lastName : formData.get('lastName')),
+            lastName: (formData.get('lastName') === null ? returnedUser.lastName :
+                formData.get('lastName').toString().length === 0 ? returnedUser.lastName : formData.get('lastName')),
 
-            userName: (formData.get('userName') === null ? currentUser.userName :
-                formData.get('userName').toString().length === 0 ? currentUser.userName : formData.get('userName')),
+            userName: (formData.get('userName') === null ? returnedUser.userName :
+                formData.get('userName').toString().length === 0 ? returnedUser.userName : formData.get('userName')),
 
-            password: (formData.get('password') === null ? currentUser.password :
-                formData.get('password').toString().length === 0 ? currentUser.password :
-                    formData.get('password') !== formData.get('confirmpassword') ? currentUser.password : formData.get('password')),
+            password: (formData.get('password') === null ? returnedUser.password :
+                formData.get('password').toString().length === 0 ? returnedUser.password :
+                    formData.get('password') !== formData.get('confirmpassword') ? returnedUser.password : formData.get('password')),
 
-            email: currentUser.email,
+            email: returnedUser.email,
 
-            rank: (formData.get('rank') === null ? currentUser.rank :
-                formData.get('rank').toString().length === 0 ? currentUser.rank : formData.get('rank')),
+            rank: (formData.get('rank') === null ? returnedUser.rank :
+                formData.get('rank').toString().length === 0 ? returnedUser.rank : formData.get('rank')),
 
             isAdmin: isAdmin
 
@@ -85,11 +103,13 @@ export default function AccountSettings() {
                 return rawResponse.json();
             })
             .then(response => {
-                navigate("/");
+                setCurrentUser(editAccount);
+                logout({ logoutParams: { returnTo: window.location.origin } });
             })
             .catch((error) => navigate("/"));
 
     };
+
     return (
         <ThemeProvider theme={DefaultTheme}>
             <Box sx={{ flexGrow: 1 }}>
@@ -122,12 +142,12 @@ export default function AccountSettings() {
                                         alignItems: 'center',
                                         '& .MuiTextField-root': { width: '25ch' },
                                     }}>
-                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="firstName" label={'First Name'} id="EditFormfirstName" color={themeMode.secondary} margin="normal" defaultValue={currentUser.firstName} focused />
-                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="lastName" label={'Last Name'} id="EditFormlastName" color={themeMode.secondary} margin="normal" defaultValue={currentUser.lastName} focused />
-                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="userName" label={'Username'} id="EditFormUsername" color={themeMode.secondary} margin="normal" defaultValue={currentUser.userName} focused />
-                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="password" label={'Password'} id="EditFormPassword" color={themeMode.secondary} margin="normal" type="password" defaultValue={currentUser.password} focused />
-                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="confirmpassword" label={'Confirm Password'} id="EditFormConfirmPassword" color={themeMode.secondary} margin="normal" type="password" defaultValue={currentUser.password} focused />
-                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="rank" label={'Rank'} id="EditFormRank" color={themeMode.secondary} margin="normal" defaultValue={currentUser.rank} focused />
+                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="firstName" label={'First Name'} id="EditFormfirstName" color={themeMode.secondary} margin="normal" defaultValue={returnedUser.firstName} focused />
+                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="lastName" label={'Last Name'} id="EditFormlastName" color={themeMode.secondary} margin="normal" defaultValue={returnedUser.lastName} focused />
+                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="userName" label={'Username'} id="EditFormUsername" color={themeMode.secondary} margin="normal" defaultValue={returnedUser.userName} focused />
+                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="password" label={'Password'} id="EditFormPassword" color={themeMode.secondary} margin="normal" type="password" defaultValue={returnedUser.password} focused />
+                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="confirmpassword" label={'Confirm Password'} id="EditFormConfirmPassword" color={themeMode.secondary} margin="normal" type="password" defaultValue={returnedUser.password} focused />
+                                    <TextField sx={{ input: { color: themeMode.secondary } }} name="rank" label={'Rank'} id="EditFormRank" color={themeMode.secondary} margin="normal" defaultValue={returnedUser.rank} focused />
                                     <span>Administrator?</span>
                                     <Switch {...label} checked={isAdmin} onChange={handleChange} />
                                     <Box
