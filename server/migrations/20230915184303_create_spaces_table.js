@@ -12,7 +12,7 @@ exports.up = function(knex) {
         table.string('equipment', 256).notNullable();
         table.integer('seating', 6).notNullable();
         table.string('classification', 256).notNullable();
-        table.string('netWork', 256).notNullable();
+        table.string('network', 256).notNullable();
         table.boolean('isTrainer').notNullable();
     })
 };

@@ -116,7 +116,7 @@ api.post('/spaces/create', (req, res) => {
             req.body.roomNumber,
             req.body.buildingName,
             req.body.buildingNumber,
-            req.body.equiptment,
+            req.body.equipment,
             req.body.seating,
             req.body.classification,
             req.body.network,
