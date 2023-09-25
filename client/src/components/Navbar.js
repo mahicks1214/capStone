@@ -21,7 +21,7 @@ import DefaultTheme from './DefaultTheme';
 import { useThemeContext } from './Context';
 import LoginButton from '../LoginButton';
 import LogoutButton from '../LogoutButton';
-
+import WelcomeUser from './WelcomeUser';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUserContext } from './UserContext';
 
@@ -181,11 +181,8 @@ function ResponsiveAppBar() {
                                 textDecoration: 'none',
                             }}
                         >
-                            {isAuthenticated ? `Welcome ${currentUser.userName}!` : ""}
+                            <WelcomeUser />
                         </Typography>
-                        <span style={{ paddingRight: '15px' }}>
-                            {isAuthenticated ? currentUser.isAdmin ? "Administrator" : "User" : "Guest"}
-                        </span>
                         <FormGroup>
                             <FormControlLabel
                                 control={
