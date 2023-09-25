@@ -17,7 +17,7 @@ import {
 import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
-const Admin = () => {
+const ManageReservations = () => {
     const [spaces, setSpaces] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
@@ -68,7 +68,7 @@ const Admin = () => {
                 <Grid container justifyContent="center">
                     <Grid item xs={12} sm={6}>
                         <Typography gutterBottom variant="h5" component="div">
-                                    Manage Spaces
+                                    Manage Reservations
                         </Typography>
                         <Button
                             fullWidth
@@ -77,7 +77,7 @@ const Admin = () => {
                             color="primary"
                             sx={{ ml: 1, boxShadow: '2px 2px 5px rgba(0,0,0,0.3)', mt: 2 }}
                         >
-                            Add a Space
+                            Add a Reservations
                         </Button>
                     </Grid>
                 </Grid>
@@ -117,4 +117,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default ManageReservations;

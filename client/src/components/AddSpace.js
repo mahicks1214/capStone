@@ -4,6 +4,8 @@ import {
     Button, Typography, TextField, Box
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const AddSpace = () => {
     const [roomName, setRoomName] = useState('');
@@ -36,15 +38,15 @@ const AddSpace = () => {
             },
             body: JSON.stringify(data),
         })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            alert(`${roomName} space added successfully!`);
-        })
-        .catch((error) => {
-            console.error('There was a problem with the POST operation:', error);
-        });
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                alert(`${roomName} space added successfully!`);
+            })
+            .catch((error) => {
+                console.error('There was a problem with the POST operation:', error);
+            });
     };
 
     return (
@@ -59,7 +61,7 @@ const AddSpace = () => {
                                 </Typography>
 
                                 <Grid container spacing={2}>
-                                    
+
                                     <Grid item xs={12}>
                                         <TextField
                                             fullWidth
@@ -70,7 +72,98 @@ const AddSpace = () => {
                                             onChange={(e) => setRoomName(e.target.value)}
                                         />
                                     </Grid>
-                                    
+
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            fullWidth
+                                            id="roomNumber"
+                                            label="Room Number"
+                                            variant="outlined"
+                                            value={roomNumber}
+                                            onChange={(e) => setRoomNumber(e.target.value)}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            fullWidth
+                                            id="buildingName"
+                                            label="Building Name"
+                                            variant="outlined"
+                                            value={buildingName}
+                                            onChange={(e) => setBuildingName(e.target.value)}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            fullWidth
+                                            id="buildingNumber"
+                                            label="Building Number"
+                                            variant="outlined"
+                                            value={buildingNumber}
+                                            onChange={(e) => setBuildingNumber(e.target.value)}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            fullWidth
+                                            id="equipment"
+                                            label="Equipment"
+                                            variant="outlined"
+                                            value={equipment}
+                                            onChange={(e) => setEquipment(e.target.value)}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            fullWidth
+                                            id="seating"
+                                            label="Seating"
+                                            variant="outlined"
+                                            value={seating}
+                                            onChange={(e) => setSeating(e.target.value)}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            fullWidth
+                                            id="classification"
+                                            label="Classification"
+                                            variant="outlined"
+                                            value={classification}
+                                            onChange={(e) => setClassification(e.target.value)}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            fullWidth
+                                            id="network"
+                                            label="Network"
+                                            variant="outlined"
+                                            value={network}
+                                            onChange={(e) => setNetwork(e.target.value)}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={isTrainer}
+                                                    onChange={(e) => setIsTrainer(e.target.checked)}
+                                                    name="isTrainer"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Is Trainer"
+                                        />
+                                    </Grid>
+
                                 </Grid>
                             </CardContent>
                             <CardActions>
