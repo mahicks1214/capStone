@@ -20,7 +20,7 @@ exports.seed = async function(knex) {
       equipment: faker.helpers.arrayElement(["Conference table", "Workstations and WiFi", "Chairs and projector"]),
       seating: faker.number.int({min:5, max:100}),
       classification: faker.helpers.arrayElement(["Confidential", "Unclassified", "Secret", "Top Secret"]),
-      netWork: faker.helpers.arrayElement(["NIPR", "SIPR", "JWICS", "Commercial", "NATO"]),
+      network: faker.helpers.arrayElement(["NIPR", "SIPR", "JWICS", "Commercial", "NATO"]),
       isTrainer: faker.datatype.boolean(),
     });
   } 
