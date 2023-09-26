@@ -19,7 +19,9 @@ import DefaultTheme from './DefaultTheme';
 import { useThemeContext } from './Context';
 import Admin from './Admin';
 import { useUserContext} from "./UserContext";
-
+import { useParams } from 'react-router-dom';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
 
 function fetchReservations(setReservations) {
   fetch('http://localhost:8080/reservations')
@@ -41,7 +43,7 @@ export default function LandingPage() {
   const [reservations, setReservations] = useState([]);
   const { themeMode } = useThemeContext();
   const  {currentUser}  = useUserContext();
-
+  const { id } = useParams();
 
   useEffect(() => {
     fetchReservations(setReservations);
