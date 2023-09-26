@@ -13,8 +13,8 @@ exports.seed = async function(knex) {
 
   for (let i = 1; i <= 20; i++) {
     spaces.push({
-      roomName: faker.person.zodiacSign(),
-      roomNumber: faker.location.buildingNumber(),
+      spaceName: faker.person.zodiacSign(),
+      spaceNumber: faker.location.buildingNumber(),
       buildingName: faker.animal.bird(),
       buildingNumber: faker.location.buildingNumber(),
       equipment: faker.helpers.arrayElement(["Conference table", "Workstations and WiFi", "Chairs and projector"]),
