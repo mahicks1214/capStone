@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
-import DefaultTheme from './DefaultTheme';
+import DefaultTheme from '../components/DefaultTheme';
 
 
 function fetchReservations(setupcomingSpaces) {

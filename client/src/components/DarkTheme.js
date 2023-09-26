@@ -9,7 +9,10 @@ const DarkTheme = createTheme({
     secondary: {
       main: '#AC3945',
     },
-  },
+    background: {
+      paper: `#121212`
+  }}
+  
 });
 
 export default DarkTheme;

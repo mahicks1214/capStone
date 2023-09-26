@@ -9,7 +9,7 @@ const DefaultTheme = createTheme({
     secondary: {
       main: '#AC3945',
     },
-  },
+  }
 });
 
 export default DefaultTheme;
