@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Paper from '@mui/material/Paper';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -11,8 +12,8 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-//import Link from '@mui/material/Link';
-import { Link } from 'react-router-dom';
+import Link from '@mui/material/Link';
+// import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
@@ -56,12 +57,13 @@ export default function LandingPage() {
   return (
     <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
       <CssBaseline />
-      <AppBar position="sticky" color={themeMode === "light" ? "primary" : "secondary"}>
-        <Typography variant="h6" color="inherit" noWrap>
+      <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
+        <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
           Upcoming Reservations
         </Typography>
       </AppBar>
       <main>
+      <Paper bgcolor='background.paper' elevation={0} maxWidth="lg">
         {/* Hero unit */}
         <Box
           sx={{
@@ -70,7 +72,7 @@ export default function LandingPage() {
             pb: 0,
           }}
         >
-          <Container maxWidth="sm">
+          <Container bgcolor='background.paper' maxWidth="sm">
             <Typography
               component="h1"
               variant="h2"
@@ -93,7 +95,7 @@ export default function LandingPage() {
             </Stack>
           </Container>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ bgcolor: 'background.paper', py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
             {reservations.map((reservations) => (
@@ -139,11 +141,11 @@ export default function LandingPage() {
                     </CardContent>
                     <CardActions>
                       <Stack direction="column" spacing={1}>
-                      <Link to={`/${currentUser}/reservationdetails/${reservations.id}`} style={{ textDecoration: 'none' }}>
-                        <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color="primary">View</Button>
+                      <Link to={`/${reservations.id}/spacedetails/${reservations.spaceId}`} underline="none">
+                        <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
                         </Link>
-                        <Link to={`/${currentUser}/editreservation/${reservations.id}`} style={{ textDecoration: 'none' }}>
-                        <Button startIcon={<EditIcon />} size="small" variant="contained" color="primary">Edit</Button>
+                        <Link to={`/${id}/editspace/${reservations.id}`} style={{ textDecoration: 'none' }}>
+                        <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
                         </Link>
                       </Stack>
                     </CardActions>
@@ -151,10 +153,10 @@ export default function LandingPage() {
                 </Card>
                 </Link>
               </Grid>
-
             ))}
           </Grid>
         </Container>
+        </Paper>
       </main>
     </ThemeProvider>
   );
