@@ -68,7 +68,6 @@ const userId = req.params.id;
 
 // CR[U]D API endpoint for updating an existing user, selected by id
 api.patch("/users/update/:id", (req, res) => {
-  console.log(req.body);
     knex("users_table")
       .where({ id: req.params.id })
       .update({
