@@ -74,7 +74,7 @@ function ResponsiveAppBar() {
 
     return (
         <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
-            <AppBar position="static" color={themeMode === "dark" ? "primary" : "secondary"} enableColorOnDark>
+            <AppBar position="static" color={themeMode === "light" ? "primary" : "secondary"} enableColorOnDark>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <RocketLaunchIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

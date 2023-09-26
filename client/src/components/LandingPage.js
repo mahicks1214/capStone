@@ -49,7 +49,7 @@ export default function LandingPage() {
   return (
     <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
       <CssBaseline />
-      <AppBar position="sticky" color={themeMode === "light" ? "primary" : "secondary"}>
+      <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
         <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
           Upcoming Reservations
         </Typography>
@@ -134,10 +134,10 @@ export default function LandingPage() {
                     <CardActions>
                       <Stack direction="column" spacing={1}>
                       <Link to={`/${reservations.id}/spacedetails/${reservations.roomId}`} underline="none">
-                        <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color="primary">View</Button>
+                        <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
                         </Link>
                         <Link to={`/${id}/editspace/${reservations.id}`} style={{ textDecoration: 'none' }}>
-                        <Button startIcon={<EditIcon />} size="small" variant="contained" color="primary">Edit</Button>
+                        <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
                         </Link>
                       </Stack>
                     </CardActions>
