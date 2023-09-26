@@ -15,20 +15,24 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
 import DefaultTheme from './DefaultTheme';
 import { useThemeContext } from './Context';
 import LoginButton from '../LoginButton';
 import LogoutButton from '../LogoutButton';
-import WelcomeUser from './WelcomeUser';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUserContext } from './UserContext';
+import ReservationsMenu from './ReservationsDropDown';
+import RoomsMenu from './RoomsDropDown';
+import UsersMenu from './UsersDropDown';
 
 const pages = [
-    <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>Items</Link>,
-    <Link to="/LandingPage" style={{ textDecoration: "none", color: "inherit" }}>Home</Link>,
-
+    // <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>Home</Link>,
+    // <Link to="/:userId/reservations/:roomId" style={{ textDecoration: "none", color: "inherit" }}>Reservations</Link>,
+    // <Link to="/:userId/rooms" style={{ textDecoration: "none", color: "inherit" }}>Rooms</Link>,
+    // <Link to="/:userId/admin" style={{ textDecoration: "none", color: "inherit" }}>Users</Link>,
+    <Link to="/credits/" style={{ textDecoration: "none", color: "inherit" }}>Credits</Link>
 ];
 
 const settings = ['Account Settings'];
@@ -69,18 +73,9 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
-    const navigate = useNavigate();
-
-    const handleSettingsClick = () => {
-        if (isAuthenticated) {
-            navigate(`/${currentUser.id}/Account`)
-        }
-        handleCloseNavMenu();
-    }
-
     return (
         <ThemeProvider theme={DefaultTheme}>
-            <AppBar position="static" color="primary" enableColorOnDark>
+            <AppBar position="static" color={themeMode === "dark" ? "primary" : "secondary"} enableColorOnDark>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <RocketLaunchIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -157,6 +152,9 @@ function ResponsiveAppBar() {
                                 SpaceTime Collaborators
                             </Typography>
                         </Link>
+                        <ReservationsMenu />
+                        <RoomsMenu />
+                        {isAuthenticated && currentUser.isAdmin ? <UsersMenu /> : null}
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
                                 <Button
@@ -181,8 +179,11 @@ function ResponsiveAppBar() {
                                 textDecoration: 'none',
                             }}
                         >
-                            <WelcomeUser />
+                            {isAuthenticated ? `Welcome ${currentUser.userName}!` : ""}
                         </Typography>
+                        <span style={{ paddingRight: '15px' }}>
+                            {isAuthenticated ? currentUser.isAdmin ? "Administrator" : "User" : "Guest"}
+                        </span>
                         <FormGroup>
                             <FormControlLabel
                                 control={
@@ -217,13 +218,15 @@ function ResponsiveAppBar() {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                <LoginButton />
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleSettingsClick}>
-                                        <Typography href={`/${currentUser.id}/Account`} textAlign="center">{setting}</Typography>
-                                    </MenuItem>
-                                ))}
-                                <LogoutButton />
+                                { isAuthenticated ? 
+                                <MenuItem>
+                                <Link to={`/${currentUser.id}/Account`} style={{ textDecoration: "none", color: "inherit" }}>
+                                    <Button sx={{ textDecoration: "none", color: "inherit" }} onClick={() => handleCloseUserMenu()}>My Account</Button>
+                                </Link>
+                                </MenuItem> : null }
+                                <MenuItem>
+                                {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+                                </MenuItem>
                             </Menu>
                         </Box>
                     </Toolbar>

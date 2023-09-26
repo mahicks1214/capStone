@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 // import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
+import { useThemeContext } from './Context';
 
 
 function fetchReservations(setReservations) {
@@ -34,6 +35,7 @@ function fetchReservations(setReservations) {
 
 export default function LandingPage() {
   const [reservations, setReservations] = useState([]);
+  const { themeMode } = useThemeContext();
 
   useEffect(() => {
     fetchReservations(setReservations);
@@ -42,7 +44,7 @@ export default function LandingPage() {
   return (
     <ThemeProvider theme={DefaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
+      <AppBar position="relative" color={themeMode === "dark" ? "primary" : "secondary"}>
         <Typography variant="h6" color="inherit" noWrap>
           TimeSpace Connections
         </Typography>
