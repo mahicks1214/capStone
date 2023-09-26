@@ -4,10 +4,10 @@ export const ThemeContext = React.createContext();
 
 export const ContextProvider = ({ children }) => {
 
-    const [themeMode, setThemeMode] = useState(() => {
-      const savedTheme = localStorage.getItem("themeMode");
-      return savedTheme ? JSON.parse(savedTheme) : [];
-    });
+    const [themeMode, setThemeMode] = useState(  'dark'//() => {
+      // const savedTheme = localStorage.getItem("themeMode");
+      // return savedTheme ? JSON.parse(savedTheme) : [];}
+      );
 
     const contextValue = { themeMode, setThemeMode };
 
