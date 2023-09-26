@@ -15,6 +15,8 @@ import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import { useThemeContext } from './Context';
+import Admin from './Admin';
+import { useUserContext} from "./UserContext";
 
 
 function fetchReservations(setReservations) {
@@ -36,12 +38,17 @@ function fetchReservations(setReservations) {
 export default function LandingPage() {
   const [reservations, setReservations] = useState([]);
   const { themeMode } = useThemeContext();
+  const  {currentUser}  = useUserContext();
+
 
   useEffect(() => {
     fetchReservations(setReservations);
   }, []);
 
   return (
+    <div>{
+      currentUser.isAdmin ? <Admin /> : 
+    
     <ThemeProvider theme={DefaultTheme}>
       <CssBaseline />
       <AppBar position="relative" color={themeMode === "dark" ? "primary" : "secondary"}>
@@ -124,5 +131,5 @@ export default function LandingPage() {
         </Container>
       </main>
     </ThemeProvider>
-  );
+}</div>);
 }

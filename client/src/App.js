@@ -13,15 +13,21 @@ import UserContextProvider from './components/UserContext';
 import AddSpace from './components/AddSpace';
 import RemoveSpace from './components/RemoveSpace';
 import EditSpace from './components/EditSpace';
+import ManageReservations from './components/ManageReservations';
+
+
 
 
 function App() {
+
+
+
   return (
     <ContextProvider>
       <UserContextProvider>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
+        <Routes>         
+          <Route path="/" element={ <LandingPage />}/>                   
           <Route path="/:userId/userhomepage" element={<UserHomePage />} />
           <Route path="/:userId/rooms" element={<Rooms />} />
           <Route path="/:userId/spacedetails/:roomId" element={<SpaceDetails />} />
@@ -31,6 +37,7 @@ function App() {
           <Route path="/:userId/addspace" element={<AddSpace />} />
           <Route path="/:userId/removespace/:id" element={<RemoveSpace />} />
           <Route path="/:userId/editspace/:id" element={<EditSpace />} />
+          <Route path="/:userId/ManageReservations" element={<ManageReservations />} />
         </Routes>
         <Footer />
       </UserContextProvider>
