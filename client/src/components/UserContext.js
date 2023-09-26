@@ -19,6 +19,19 @@ const UserContextProvider = ({ children }) => {
             guest: true
         });
 
+        const [modifiedUser, setModifiedUser] = useState(
+            {
+                id: "",
+                firstName: "",
+                lastName: "",
+                userName: "",
+                password: "",
+                email: "",
+                rank: "",
+                isAdmin: false,
+                guest: true
+            });
+
     const { user } = useAuth0();
     const { isAuthenticated } = useAuth0();
 
@@ -26,6 +39,7 @@ const UserContextProvider = ({ children }) => {
         // Check to see if the user is logged in
         if (isAuthenticated === true) {
             // If so, attempt to get the user from our database by the authenicated email string
+
             fetch(`http://localhost:8080/users/email/${user.email}`)
                 .then((response) => {
                     if (!response.ok) {
@@ -143,9 +157,9 @@ const UserContextProvider = ({ children }) => {
         //     rank: "",
         //     isAdmin: false
         // })
-    }, [isAuthenticated])
+    }, [isAuthenticated, modifiedUser])
     return (
-        <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+        <UserContext.Provider value={{ currentUser, setCurrentUser, modifiedUser, setModifiedUser }}>
             {children}
         </UserContext.Provider>
     );
