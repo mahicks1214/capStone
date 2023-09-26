@@ -50,10 +50,10 @@ function ResponsiveAppBar() {
 
     const handleThemeChange = (event) => {
         setAuth(event.target.checked);
-        if (themeMode === 'dark') {
-            setThemeMode('light');
-        } else if (themeMode === 'light') {
+        if (themeMode === 'light') {
             setThemeMode('dark');
+        } else if (themeMode === 'dark') {
+            setThemeMode('light');
         }
     };
 

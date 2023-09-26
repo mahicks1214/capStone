@@ -9,6 +9,10 @@ const DarkTheme = createTheme({
     secondary: {
       main: '#AC3945',
     },
+    background: {
+      default: '#121212',
+      paper: '#121212',
+    }
   },
 });
 
