@@ -18,7 +18,8 @@ import FormGroup from '@mui/material/FormGroup';
 import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
 import DefaultTheme from './DefaultTheme';
-import { useThemeContext } from './Context';
+import DarkTheme from './DarkTheme';
+import { useThemeContext } from './ThemeContext';
 import LoginButton from '../LoginButton';
 import LogoutButton from '../LogoutButton';
 import { useAuth0 } from "@auth0/auth0-react";
@@ -35,8 +36,6 @@ const pages = [
     <Link to="/credits/" style={{ textDecoration: "none", color: "inherit" }}>Credits</Link>
 ];
 
-const settings = ['Account Settings'];
-
 function ResponsiveAppBar() {
     const [auth, setAuth] = React.useState(true);
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -51,10 +50,10 @@ function ResponsiveAppBar() {
 
     const handleThemeChange = (event) => {
         setAuth(event.target.checked);
-        if (themeMode === 'light') {
-            setThemeMode('dark');
-        } else if (themeMode === 'dark') {
+        if (themeMode === 'dark') {
             setThemeMode('light');
+        } else if (themeMode === 'light') {
+            setThemeMode('dark');
         }
     };
 
@@ -74,7 +73,7 @@ function ResponsiveAppBar() {
     };
 
     return (
-        <ThemeProvider theme={DefaultTheme}>
+        <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
             <AppBar position="static" color={themeMode === "dark" ? "primary" : "secondary"} enableColorOnDark>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>

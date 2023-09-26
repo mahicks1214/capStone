@@ -14,7 +14,8 @@ import Container from '@mui/material/Container';
 // import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
-import { useThemeContext } from './Context';
+import DarkTheme from './DarkTheme';
+import { useThemeContext } from './ThemeContext';
 
 
 function fetchReservations(setReservations) {
@@ -42,11 +43,11 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <ThemeProvider theme={DefaultTheme}>
+    <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
       <CssBaseline />
-      <AppBar position="relative" color={themeMode === "dark" ? "primary" : "secondary"}>
+      <AppBar position="sticky" color={themeMode === "light" ? "primary" : "secondary"}>
         <Typography variant="h6" color="inherit" noWrap>
-          TimeSpace Connections
+          Upcoming Reservations
         </Typography>
       </AppBar>
       <main>
