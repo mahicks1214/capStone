@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
+// import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
@@ -20,6 +21,7 @@ import { useThemeContext } from './ThemeContext';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useParams } from 'react-router-dom';
+import { useUserContext } from './UserContext';
 
 function fetchReservations(setReservations) {
   fetch('http://localhost:8080/reservations')
@@ -39,8 +41,14 @@ function fetchReservations(setReservations) {
 
 export default function LandingPage() {
   const [reservations, setReservations] = useState([]);
+  const [view, setView] = React.useState(null);
+  const { currentUser } = useUserContext();
   const { themeMode } = useThemeContext();
   const { id } = useParams();
+
+  const handleView = (event) => {
+    setView(event.currentTarget);
+};
 
   useEffect(() => {
     fetchReservations(setReservations);
@@ -93,7 +101,7 @@ export default function LandingPage() {
             {reservations.map((reservations) => (
               
               <Grid item key={reservations.id} xs={12}>
-                <Link to={`/${reservations.id}/spacedetails/${reservations.roomId}`} underline="none">
+                <Link to={`/${currentUser}/reservationdetails/${reservations.id}`} style={{ textDecoration: 'none' }}>
                 <Card sx={{
                   display: 'flex',
                   flexDirection: 'row',
@@ -133,7 +141,7 @@ export default function LandingPage() {
                     </CardContent>
                     <CardActions>
                       <Stack direction="column" spacing={1}>
-                      <Link to={`/${reservations.id}/spacedetails/${reservations.roomId}`} underline="none">
+                      <Link to={`/${reservations.id}/spacedetails/${reservations.spaceId}`} underline="none">
                         <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
                         </Link>
                         <Link to={`/${id}/editspace/${reservations.id}`} style={{ textDecoration: 'none' }}>
@@ -145,7 +153,6 @@ export default function LandingPage() {
                 </Card>
                 </Link>
               </Grid>
-
             ))}
           </Grid>
         </Container>
