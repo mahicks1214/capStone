@@ -6,7 +6,7 @@ const Copyright = (props) => {
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
         <Link color="inherit" href="/">
-          Immaculate Item Inventory Solutions
+          SpaceTime Collaborators
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
