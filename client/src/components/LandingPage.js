@@ -14,12 +14,11 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
-import { useThemeContext } from './Context';
+import DarkTheme from './DarkTheme';
+import { useThemeContext } from './ThemeContext';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useParams } from 'react-router-dom';
-
-
 
 function fetchReservations(setReservations) {
   fetch('http://localhost:8080/reservations')
@@ -47,8 +46,13 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <ThemeProvider theme={DefaultTheme}>
+    <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
       <CssBaseline />
+      <AppBar position="sticky" color={themeMode === "light" ? "primary" : "secondary"}>
+        <Typography variant="h6" color="inherit" noWrap>
+          Upcoming Reservations
+        </Typography>
+      </AppBar>
       <main>
         {/* Hero unit */}
         <Box
