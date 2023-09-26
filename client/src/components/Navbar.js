@@ -93,7 +93,7 @@ function ResponsiveAppBar() {
                                     textDecoration: 'none',
                                 }}
                             >
-                                SpaceTime Collaborators
+                                SpaceTime
                             </Typography>
                         </Link>
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
