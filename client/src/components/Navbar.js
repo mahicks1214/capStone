@@ -20,8 +20,8 @@ import { ThemeProvider } from '@emotion/react';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
 import { useThemeContext } from './ThemeContext';
-import LoginButton from '../LoginButton';
-import LogoutButton from '../LogoutButton';
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUserContext } from './UserContext';
 import ReservationsMenu from './ReservationsDropDown';
@@ -50,10 +50,10 @@ function ResponsiveAppBar() {
 
     const handleThemeChange = (event) => {
         setAuth(event.target.checked);
-        if (themeMode === 'dark') {
-            setThemeMode('light');
-        } else if (themeMode === 'light') {
+        if (themeMode === 'light') {
             setThemeMode('dark');
+        } else if (themeMode === 'dark') {
+            setThemeMode('light');
         }
     };
 
@@ -74,7 +74,7 @@ function ResponsiveAppBar() {
 
     return (
         <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
-            <AppBar position="static" color={themeMode === "dark" ? "primary" : "secondary"} enableColorOnDark>
+            <AppBar position="static" color={themeMode === "light" ? "primary" : "secondary"} enableColorOnDark>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <RocketLaunchIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
