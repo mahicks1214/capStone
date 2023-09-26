@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { ContextProvider } from "./components/Context";
+import { ThemeContextProvider } from "./components/ThemeContext";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LandingPage from './components/LandingPage';
@@ -17,7 +17,7 @@ import EditSpace from './components/EditSpace';
 
 function App() {
   return (
-    <ContextProvider>
+    <ThemeContextProvider>
       <UserContextProvider>
         <Navbar />
         <Routes>
@@ -34,7 +34,7 @@ function App() {
         </Routes>
         <Footer />
       </UserContextProvider>
-    </ContextProvider>
+    </ThemeContextProvider>
   );
 }
 
