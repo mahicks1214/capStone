@@ -12,8 +12,8 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-// import { Link } from 'react-router-dom';
+// import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
@@ -141,11 +141,11 @@ export default function LandingPage() {
                     </CardContent>
                     <CardActions>
                       <Stack direction="column" spacing={1}>
-                      <Link to={`/${reservations.id}/spacedetails/${reservations.spaceId}`} underline="none">
-                        <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
+                        <Link to={`/${currentUser}/reservationdetails/${reservations.id}`} style={{ textDecoration: 'none' }}>
+                          <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
                         </Link>
-                        <Link to={`/${id}/editspace/${reservations.id}`} style={{ textDecoration: 'none' }}>
-                        <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
+                        <Link to={`/${id}/editreservation/${reservations.id}`} style={{ textDecoration: 'none' }}>
+                          <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
                         </Link>
                       </Stack>
                     </CardActions>
