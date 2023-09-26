@@ -4,12 +4,12 @@ const DefaultTheme = createTheme({
   palette: {
     mode: `light`,
     primary: {
-      main: '#5E2750',
-    },
-    secondary: {
       main: '#AC3945',
     },
-  },
+    secondary: {
+      main: '#5E2750',
+    },
+  }
 });
 
 export default DefaultTheme;

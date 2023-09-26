@@ -5,8 +5,8 @@
 exports.up = function(knex) {
     return knex.schema.createTable('spaces_table', table => {
         table.increments('id').primary;
-        table.string('roomName', 256).notNullable();
-        table.string('roomNumber',256).notNullable();
+        table.string('spaceName', 256).notNullable();
+        table.string('spaceNumber',256).notNullable();
         table.string('buildingName', 256);
         table.string('buildingNumber',256).notNullable();
         table.string('equipment', 256).notNullable();
