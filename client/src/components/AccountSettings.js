@@ -7,8 +7,9 @@ import Switch from '@mui/material/Switch';
 import { useUserContext } from "./UserContext";
 import { useState } from "react";
 import DefaultTheme from "./DefaultTheme";
+import DarkTheme from "./DarkTheme";
 import { ThemeProvider } from '@emotion/react';
-import { useThemeContext } from './Context';
+import { useThemeContext } from './ThemeContext';
 
 export default function AccountSettings() {
     const navigate = useNavigate();
@@ -73,7 +74,7 @@ export default function AccountSettings() {
 
     };
     return (
-        <ThemeProvider theme={DefaultTheme}>
+        <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
             <Box sx={{ flexGrow: 1 }}>
                 <div>
                     <center>

@@ -10,7 +10,10 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import DefaultTheme from './DefaultTheme';
+import DarkTheme from './DarkTheme';
+import { useThemeContext } from './ThemeContext';
 
 
 function fetchReservations(setSpaces) {
@@ -29,17 +32,16 @@ function fetchReservations(setSpaces) {
         });
 }
 
-const defaultTheme = createTheme();
-
 export default function LandingPage() {
     const [spaces, setSpaces] = useState([]);
+    const { themeMode } = useThemeContext();
 
     useEffect(() => {
         fetchReservations(setSpaces);
     }, []);
 
     return (
-        <ThemeProvider theme={defaultTheme}>
+        <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
             <CssBaseline />
             <main>
                 <Box
