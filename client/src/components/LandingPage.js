@@ -16,12 +16,12 @@ import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
-import DarkTheme from './DarkTheme';
-import { useThemeContext } from './ThemeContext';
-import EditIcon from '@mui/icons-material/Edit';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import { useThemeContext } from './Context';
+import Admin from './Admin';
+import { useUserContext} from "./UserContext";
 import { useParams } from 'react-router-dom';
-import { useUserContext } from './UserContext';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
 
 function fetchReservations(setReservations) {
   fetch('http://localhost:8080/reservations')
@@ -41,21 +41,19 @@ function fetchReservations(setReservations) {
 
 export default function LandingPage() {
   const [reservations, setReservations] = useState([]);
-  const [view, setView] = React.useState(null);
-  const { currentUser } = useUserContext();
   const { themeMode } = useThemeContext();
+  const  {currentUser}  = useUserContext();
   const { id } = useParams();
-
-  const handleView = (event) => {
-    setView(event.currentTarget);
-};
 
   useEffect(() => {
     fetchReservations(setReservations);
   }, []);
 
   return (
-    <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
+    <div>{
+      currentUser.isAdmin ? <Admin /> : 
+    
+    <ThemeProvider theme={DefaultTheme}>
       <CssBaseline />
       <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
         <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
@@ -69,7 +67,7 @@ export default function LandingPage() {
           sx={{
             bgcolor: 'background.paper',
             pt: 8,
-            pb: 0,
+            pb: 6,
           }}
         >
           <Container bgcolor='background.paper' maxWidth="sm">
@@ -79,19 +77,18 @@ export default function LandingPage() {
               align="center"
               color="text.primary"
               gutterBottom
-              sx={{ fontWeight: 600 }}
             >
               Upcoming Reservations!
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Below are reservations that are coming up soon! Book now to lock in your SpaceTime!
+              Below are reservations that are coming up soon! Book now to lock in your TimeSpace!
             </Typography>
             <Stack
               sx={{ pt: 4 }}
               direction="row"
               spacing={2}
               justifyContent="center"
-            >
+            >              
             </Stack>
           </Container>
         </Box>
@@ -99,29 +96,17 @@ export default function LandingPage() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {reservations.map((reservations) => (
-              
               <Grid item key={reservations.id} xs={12}>
-                <Link to={`/${currentUser}/reservationdetails/${reservations.id}`} style={{ textDecoration: 'none' }}>
-                <Card sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-                  borderRadius: '8px',
-                  transition: 'transform .2s',
-                  '&:hover': {
-                    transform: 'scale(1.02)'
-                  }
-                }}>
+                <Card
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                >
                   <CardMedia
                     component="div"
                     sx={{
                       width: 200,
-                      height: 200,
-                      backgroundSize: 'cover',
-                      borderRadius: '8px 0 0 8px',
-                      padding: '16px'
-                    }}
+                      height: 140,
+                      backgroundSize: 'cover'
+                  }}
                     image={`https://source.unsplash.com/random?wallpapers&id=${reservations.id}`}
                   />
                   <Box sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center', marginLeft: '16px' }}>
@@ -151,7 +136,6 @@ export default function LandingPage() {
                     </CardActions>
                   </Box>
                 </Card>
-                </Link>
               </Grid>
             ))}
           </Grid>
@@ -159,5 +143,5 @@ export default function LandingPage() {
         </Paper>
       </main>
     </ThemeProvider>
-  );
+}</div>);
 }
