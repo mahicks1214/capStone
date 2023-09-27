@@ -66,7 +66,6 @@ function App() {
           {/* ---------- Admin Routes ---------- */}
           <Route path="/:userId/Admin" element={<AuthenticationGuard component={Admin} />} />
           <Route path="/:userId/Account" element={<AuthenticationGuard component={AccountSettings} />} />
-          
         </Routes>
         <Footer />
       </UserContextProvider>
