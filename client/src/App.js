@@ -21,29 +21,37 @@ import AddUser from './components/AddUser';
 
 
 function App() {
-
-
-
   return (
     <ThemeContextProvider>
       <UserContextProvider>
         <Navbar />
-        <Routes>         
-          <Route path="/" element={ <LandingPage />}/> 
-          <Route path="/:userId/rooms" element={<Rooms />} />
-          <Route path="/:userId/spacedetails/:roomId" element={<SpaceDetails />} />
-          <Route path="/:userId/reservations/:roomId" element={<Reservation />} />        
-          <Route path="/:userId/reservationdetails/:reservationId" element={<ReservationDetails />} />
-          <Route path="/:userId/admin" element={<Admin />} />
+        <Routes>
+          {/* ---------- Root Route ----------- */}
+          <Route path="/" element={<LandingPage />}/>
+          <Route path="/Reservations/:reservationId" element={<Reservation />} />
+
+          {/* ---------- User Routes ----------- */}
+          <Route path="/:userId/Users/Create" element={<AddUser />} />
+          <Route path="/:userId/Users" element={<ViewUsers />} />
+          <Route path="/:userId/Users/Update" element={<EditUser />} />
+
+          {/* ---------- Space Routes ----------- */}
+          <Route path="/:userId/Spaces/Create" element={<AddSpace />} />
+          <Route path="/:userId/Spaces" element={<Rooms />} />
+          <Route path="/:userId/Spaces/:id" element={<SpaceDetails />} />
+          <Route path="/:userId/Spaces/Update/:id" element={<EditSpace />} />
+          <Route path="/:userId/Spaces/Delete/:id" element={<RemoveSpace />} />
+
+          {/* ---------- Reservation Routes ---------- */}
+          <Route path="/:userId/Reservations/ManageReservations" element={<ManageReservations />} />
+          <Route path="/:userId/Reservations/editreservation/:id" element={<EditReservation />} />
+          <Route path="/:userId/Reservations/:spaceId" element={<Reservation />} />        
+          <Route path="/:userId/Reservations/:reservationId" element={<ReservationDetails />} />
+
+          {/* ---------- Admin Routes ---------- */}
+          <Route path="/:userId/Admin" element={<Admin />} />
           <Route path="/:userId/Account" element={<AccountSettings />} />
-          <Route path="/:userId/addspace" element={<AddSpace />} />
-          <Route path="/:userId/removespace/:id" element={<RemoveSpace />} />
-          <Route path="/:userId/editspace/:id" element={<EditSpace />} />
-          <Route path="/:userId/ManageReservations" element={<ManageReservations />} />
-          <Route path="/:userId/editreservation/:id" element={<EditReservation />} />
-          <Route path="/users/:userId/edit" element={<EditUser />} />
-          <Route path="/users/create" element={<AddUser />} />
-          <Route path="/users" element={<ViewUsers />} />
+          
         </Routes>
         <Footer />
       </UserContextProvider>

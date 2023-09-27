@@ -4,14 +4,19 @@ export const ThemeContext = React.createContext();
 
 export const ThemeContextProvider = ({ children }) => {
 
-    const [themeMode, setThemeMode] = useState('dark');
+  const capitalizeFirstLetter = (string) => {
+    if (string) {
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+    return '';
+  };
 
-    const contextValue = { themeMode, setThemeMode };
+  const [themeMode, setThemeMode] = useState('dark');
+  const contextValue = { themeMode, setThemeMode, capitalizeFirstLetter };
 
-
-    useEffect(() => {
-      localStorage.setItem("themeMode", JSON.stringify(themeMode));
-    }, [themeMode]);
+  useEffect(() => {
+    localStorage.setItem("themeMode", JSON.stringify(themeMode));
+  }, [themeMode]);
   
     return (
       <ThemeContext.Provider
@@ -20,8 +25,8 @@ export const ThemeContextProvider = ({ children }) => {
         {children}
       </ThemeContext.Provider>
     );
-  };
+};
   
-  export const useThemeContext = () => {
-    return useContext(ThemeContext);
-  };
+export const useThemeContext = () => {
+  return useContext(ThemeContext);
+};
