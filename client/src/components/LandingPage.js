@@ -16,7 +16,8 @@ import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
-import { useThemeContext } from './Context';
+import DarkTheme from './DarkTheme';
+import { useThemeContext } from './ThemeContext';
 import Admin from './Admin';
 import { useUserContext} from "./UserContext";
 import { useParams } from 'react-router-dom';
@@ -53,7 +54,7 @@ export default function LandingPage() {
     <div>{
       currentUser.isAdmin ? <Admin /> : 
     
-    <ThemeProvider theme={DefaultTheme}>
+      <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
       <CssBaseline />
       <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
         <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
@@ -67,7 +68,7 @@ export default function LandingPage() {
           sx={{
             bgcolor: 'background.paper',
             pt: 8,
-            pb: 6,
+            pb: 0,
           }}
         >
           <Container bgcolor='background.paper' maxWidth="sm">
@@ -77,18 +78,19 @@ export default function LandingPage() {
               align="center"
               color="text.primary"
               gutterBottom
+              sx={{ fontWeight: 600 }}
             >
               Upcoming Reservations!
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Below are reservations that are coming up soon! Book now to lock in your TimeSpace!
+              Below are reservations that are coming up soon! Book now to lock in your SpaceTime!
             </Typography>
             <Stack
               sx={{ pt: 4 }}
               direction="row"
               spacing={2}
               justifyContent="center"
-            >              
+            >
             </Stack>
           </Container>
         </Box>
@@ -96,17 +98,29 @@ export default function LandingPage() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {reservations.map((reservations) => (
+              
               <Grid item key={reservations.id} xs={12}>
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
+                <Link to={`/${currentUser}/reservationdetails/${reservations.id}`} style={{ textDecoration: 'none' }}>
+                <Card sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '8px',
+                  transition: 'transform .2s',
+                  '&:hover': {
+                    transform: 'scale(1.02)'
+                  }
+                }}>
                   <CardMedia
                     component="div"
                     sx={{
                       width: 200,
-                      height: 140,
-                      backgroundSize: 'cover'
-                  }}
+                      height: 200,
+                      backgroundSize: 'cover',
+                      borderRadius: '8px 0 0 8px',
+                      padding: '16px'
+                    }}
                     image={`https://source.unsplash.com/random?wallpapers&id=${reservations.id}`}
                   />
                   <Box sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center', marginLeft: '16px' }}>
@@ -126,16 +140,17 @@ export default function LandingPage() {
                     </CardContent>
                     <CardActions>
                       <Stack direction="column" spacing={1}>
-                        <Link to={`/${currentUser}/reservationdetails/${reservations.id}`} style={{ textDecoration: 'none' }}>
-                          <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
+                      <Link to={`/${reservations.id}/spacedetails/${reservations.spaceId}`} underline="none">
+                        <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
                         </Link>
-                        <Link to={`/${id}/editreservation/${reservations.id}`} style={{ textDecoration: 'none' }}>
-                          <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
+                        <Link to={`/${id}/editspace/${reservations.id}`} style={{ textDecoration: 'none' }}>
+                        <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
                         </Link>
                       </Stack>
                     </CardActions>
                   </Box>
                 </Card>
+                </Link>
               </Grid>
             ))}
           </Grid>
@@ -143,5 +158,6 @@ export default function LandingPage() {
         </Paper>
       </main>
     </ThemeProvider>
+  
 }</div>);
 }
