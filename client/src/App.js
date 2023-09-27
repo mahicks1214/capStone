@@ -1,3 +1,5 @@
+import { useAuth0 } from "@auth0/auth0-react";
+import { AuthenticationGuard } from "./components/authentication-guard";
 import { Routes, Route } from 'react-router-dom';
 import { ThemeContextProvider } from "./components/ThemeContext";
 import Navbar from './components/Navbar';
@@ -18,9 +20,20 @@ import EditReservation from './components/EditReservation';
 import ViewUsers from './components/ViewUsers'; 
 import EditUser from './components/EditUser';
 import AddUser from './components/AddUser';
+import Loading from "./components/Loading";
 
 
 function App() {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return (
+      <div className="page-layout">
+        <Loading />
+      </div>
+    )
+  }
+
   return (
     <ThemeContextProvider>
       <UserContextProvider>
@@ -31,9 +44,9 @@ function App() {
           <Route path="/Reservations/:reservationId" element={<Reservation />} />
 
           {/* ---------- User Routes ----------- */}
-          <Route path="/:userId/Users/Create" element={<AddUser />} />
-          <Route path="/:userId/Users" element={<ViewUsers />} />
-          <Route path="/:userId/Users/Update" element={<EditUser />} />
+          <Route path="/:userId/Users/Create" element={<AuthenticationGuard component={AddUser} />} />
+          <Route path="/:userId/Users" element={<AuthenticationGuard component={ViewUsers} />} />
+          <Route path="/:userId/Users/Update" element={<AuthenticationGuard component={EditUser} />} />
 
           {/* ---------- Space Routes ----------- */}
           <Route path="/:userId/Spaces/Create" element={<AddSpace />} />
