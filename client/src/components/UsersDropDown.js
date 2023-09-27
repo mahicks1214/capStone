@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import { Link } from 'react-router-dom';
 
 export default function UsersMenu() {
   
@@ -37,15 +38,11 @@ export default function UsersMenu() {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        {/* <Link to="/users"> */}
-        <MenuItem onClick={handleClose}>View Users</MenuItem>
-        {/* </Link> */}
-        {/* <Link to="/users/add"> */}
-        <MenuItem onClick={handleClose}>Add User</MenuItem>
-        {/* </Link> */}
+        <MenuItem component={Link} to="/users" onClick={handleClose}>View Users</MenuItem>
+        <MenuItem component={Link} to="/users/create" onClick={handleClose}>Add User</MenuItem>
         { /* These are handled within "/users" as an administrator*/ }
-        <MenuItem href="/users/:userid/edit" onClick={handleClose}>Edit User</MenuItem>
-        <MenuItem href="/users/:userid/delete" onClick={handleClose}>Delete User</MenuItem>
+        {/* <MenuItem href="/users/:userid/edit" onClick={handleClose}>Edit User</MenuItem> */}
+        {/* <MenuItem href="/users/:userid/delete" onClick={handleClose}>Delete User</MenuItem> */}
       </Menu>
     </div>
   );

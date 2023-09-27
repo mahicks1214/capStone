@@ -68,7 +68,7 @@ const EditReservation = () => {
                                 </Typography>
                                 <form onSubmit={handleFormSubmit}>
                                     <Grid container spacing={2}>
-                                    
+
                                         <Grid item xs={12}>
                                             <TextField
                                                 fullWidth
@@ -79,7 +79,40 @@ const EditReservation = () => {
                                                 onChange={(e) => setReservation({ ...reservation, meetingName: e.target.value })}
                                             />
                                         </Grid>
-                                        
+
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                fullWidth
+                                                id="meetingDescription"
+                                                label="Meeting Description"
+                                                variant="outlined"
+                                                value={reservation.meetingDescription}
+                                                onChange={(e) => setReservation({ ...reservation, meetingDescription: e.target.value })}
+                                            />
+                                        </Grid>
+
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                fullWidth
+                                                id="meetingStart"
+                                                label="Meeting Start"
+                                                variant="outlined"
+                                                value={reservation.meetingStart}
+                                                onChange={(e) => setReservation({ ...reservation, meetingStart: e.target.value })}
+                                            />
+                                        </Grid>
+
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                fullWidth
+                                                id="meetingDuration"
+                                                label="Meeting Duration"
+                                                variant="outlined"
+                                                value={reservation.meetingDuration}
+                                                onChange={(e) => setReservation({ ...reservation, meetingDuration: e.target.value })}
+                                            />
+                                        </Grid>
+
                                     </Grid>
                                     <CardActions>
                                         <Button

@@ -12,20 +12,44 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-// import Link from '@mui/material/Link';
-import { Link } from 'react-router-dom';
+import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
 import { useThemeContext } from './ThemeContext';
-import Admin from './Admin';
-import { useUserContext} from "./UserContext";
-import { useParams } from 'react-router-dom';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import { useNavigate } from 'react-router-dom';
+import { useUserContext } from './UserContext';
 
-function fetchReservations(setReservations) {
-  fetch('http://localhost:8080/reservations')
+function deleteUser(id, navigate, setDataReceived) {
+fetch(`http://localhost:8080/reservations/${id}/delete`, {
+    method: "DELETE",
+})
+    .then((response) => {
+    fetch(`http://localhost:8080/users/delete/${id}`, {
+        method: "DELETE",
+    });
+    })
+    .then((response) => {
+    setDataReceived(true);
+    navigate("/users");
+    });
+}
+
+export default function ViewUsers() {
+  const [users, setUsers] = useState([]);
+  const [view, setView] = React.useState(null);
+  const [dataReceived, setDataReceived] = useState(false);
+  const { themeMode } = useThemeContext();
+  const { currentUser } = useUserContext();
+  const navigate = useNavigate();
+  const handleView = (event) => {
+    setView(event.currentTarget);
+};
+
+  useEffect(() => {
+    fetch('http://localhost:8080/users')
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -33,37 +57,23 @@ function fetchReservations(setReservations) {
       return response.json();
     })
     .then((data) => {
-      setReservations(data.slice(0, 6));
+      setUsers(data);
     })
     .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
     });
-}
-
-export default function LandingPage() {
-  const [reservations, setReservations] = useState([]);
-  const { themeMode } = useThemeContext();
-  const  {currentUser}  = useUserContext();
-  const { id } = useParams();
-
-  useEffect(() => {
-    fetchReservations(setReservations);
-  }, []);
+  }, [dataReceived]);
 
   return (
-    <div>{
-      currentUser.isAdmin ? <Admin /> : 
-    
-      <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
       <CssBaseline />
       <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
         <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
-          Upcoming Reservations
+          View Users
         </Typography>
       </AppBar>
       <main>
       <Paper bgcolor='background.paper' elevation={0} maxWidth="lg">
-        {/* Hero unit */}
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -80,10 +90,7 @@ export default function LandingPage() {
               gutterBottom
               sx={{ fontWeight: 600 }}
             >
-              Upcoming Reservations!
-            </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Below are reservations that are coming up soon! Book now to lock in your SpaceTime!
+              Users
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -95,12 +102,10 @@ export default function LandingPage() {
           </Container>
         </Box>
         <Container sx={{ bgcolor: 'background.paper', py: 8 }} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={4}>
-            {reservations.map((reservations) => (
+            {users.map((user) => (
               
-              <Grid item key={reservations.id} xs={12}>
-                <Link to={`/${currentUser}/reservationdetails/${reservations.id}`} style={{ textDecoration: 'none' }}>
+              <Grid item key={user.id} xs={12}>
                 <Card sx={{
                   display: 'flex',
                   flexDirection: 'row',
@@ -121,36 +126,39 @@ export default function LandingPage() {
                       borderRadius: '8px 0 0 8px',
                       padding: '16px'
                     }}
-                    image={`https://source.unsplash.com/random?wallpapers&id=${reservations.id}`}
+                    image={`https://source.unsplash.com/random?wallpapers&id=${user.id}`}
                   />
                   <Box sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center', marginLeft: '16px' }}>
                     <CardContent sx={{ padding: '16px' }}>
                       <Typography gutterBottom variant="h5" component="h2">
-                        Training Course - {reservations.meetingName}
+                        {user.userName}
                       </Typography>
                       <Typography>
-                        In Room - {reservations.roomId}
+                        First Name - {user.firstName}
                       </Typography>
                       <Typography>
-                        Training Description - {reservations.meetingDescription}
+                        Last Name - {user.lastName}
                       </Typography>
                       <Typography>
-                        Start Time - {reservations.meetingStart}
+                        Email - {user.email}
+                      </Typography>
+                      <Typography>
+                        Rank - {user.rank}
+                      </Typography>
+                      <Typography>
+                        Admin - {user.isAdmin.toString()}
                       </Typography>
                     </CardContent>
                     <CardActions>
+                    { currentUser.id !== user.id ?
                       <Stack direction="column" spacing={1}>
-                      <Link to={`/${reservations.id}/spacedetails/${reservations.spaceId}`} underline="none">
-                        <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
-                        </Link>
-                        <Link to={`/${id}/editspace/${reservations.id}`} style={{ textDecoration: 'none' }}>
-                        <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
-                        </Link>
+                        <Button startIcon={<EditIcon />} size="small" sx={{width: "100px"}} variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => {navigate(`/users/${user.id}/edit`)}}>Edit</Button>
+                        <Button startIcon={<PersonRemoveIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => {deleteUser(user.id, navigate, setDataReceived)}}>Delete</Button>
                       </Stack>
+                    : null }
                     </CardActions>
                   </Box>
                 </Card>
-                </Link>
               </Grid>
             ))}
           </Grid>
@@ -158,6 +166,5 @@ export default function LandingPage() {
         </Paper>
       </main>
     </ThemeProvider>
-  
-}</div>);
+  );
 }
