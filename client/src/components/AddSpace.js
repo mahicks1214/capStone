@@ -8,8 +8,8 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 const AddSpace = () => {
-    const [roomName, setRoomName] = useState('');
-    const [roomNumber, setRoomNumber] = useState('');
+    const [spaceName, setSpaceName] = useState('');
+    const [spaceNumber, setSpaceNumber] = useState('');
     const [buildingName, setBuildingName] = useState('');
     const [buildingNumber, setBuildingNumber] = useState('');
     const [equipment, setEquipment] = useState('');
@@ -20,8 +20,8 @@ const AddSpace = () => {
 
     const handleSubmit = () => {
         const data = {
-            roomName,
-            roomNumber,
+            spaceName,
+            spaceNumber,
             buildingName,
             buildingNumber,
             equipment,
@@ -42,7 +42,7 @@ const AddSpace = () => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                alert(`${roomName} space added successfully!`);
+                alert(`${spaceName} space added successfully!`);
             })
             .catch((error) => {
                 console.error('There was a problem with the POST operation:', error);
@@ -65,22 +65,22 @@ const AddSpace = () => {
                                     <Grid item xs={12}>
                                         <TextField
                                             fullWidth
-                                            id="roomName"
-                                            label="Room Name"
+                                            id="spaceName"
+                                            label="Space Name"
                                             variant="outlined"
-                                            value={roomName}
-                                            onChange={(e) => setRoomName(e.target.value)}
+                                            value={spaceName}
+                                            onChange={(e) => setSpaceName(e.target.value)}
                                         />
                                     </Grid>
 
                                     <Grid item xs={12}>
                                         <TextField
                                             fullWidth
-                                            id="roomNumber"
-                                            label="Room Number"
+                                            id="spaceNumber"
+                                            label="Space Number"
                                             variant="outlined"
-                                            value={roomNumber}
-                                            onChange={(e) => setRoomNumber(e.target.value)}
+                                            value={spaceNumber}
+                                            onChange={(e) => setSpaceNumber(e.target.value)}
                                         />
                                     </Grid>
 

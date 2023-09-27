@@ -154,7 +154,7 @@ export default function ViewUsers() {
                       <Stack direction="column" spacing={1}>
                         <Button startIcon={<EditIcon />} size="small" sx={{width: "100px"}} variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => {navigate(`/users/${user.id}/edit`)}}>Edit</Button>
                         <Button startIcon={<PersonRemoveIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => {deleteUser(user.id, navigate, setDataReceived)}}>Delete</Button>
-                      </Stack>
+                      </Stack>                      
                     : null }
                     </CardActions>
                   </Box>
