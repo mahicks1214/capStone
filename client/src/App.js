@@ -44,11 +44,6 @@ function App() {
           <Route path="/users/:userId/edit" element={<UpdateUser />} />
           <Route path="/users/create" element={<AddUser />} />
           <Route path="/users" element={<ViewUsers />} />
-<<<<<<< HEAD
-          <Route path="/:userId/Reservation" element={<CreateReservation />} />        
-=======
-          <Route path="/:userId/Reservation" element={<Reservation />} />        
->>>>>>> 2d74136 (Redid the Reservation rendering for the View and the Create)
         </Routes>
         <Footer />
       </UserContextProvider>
