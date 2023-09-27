@@ -18,15 +18,15 @@ import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const ManageReservations = () => {
-    const [spaces, setSpaces] = useState([]);
+    const [reservations, setReservations] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:8080/spaces')
+        fetch('http://localhost:8080/reservations')
             .then((response) => response.json())
             .then((data) => {
-                setSpaces(data);
+                setReservations(data);
                 setIsLoading(false);
             })
             .catch((error) => {
@@ -35,22 +35,28 @@ const ManageReservations = () => {
             });
     }, []);
 
-    const handleAddSpace = () => {
-        console.log('Adding a space...');
-        alert('You pressed "Add a Space"');
-         navigate('/addspace');
+    const handleAdmin = () => {
+        console.log('Moving to Admin Main Page');
+        alert('Moving to Admin Main Page');
+         navigate('/:userId/Admin');
     };
 
-    const handleRemoveSpace = (id) => {
+    const handleAddReservation = () => {
+        console.log('Adding a Reservation...');
+        alert('You pressed "Add a Reservation"');
+         navigate("/:userId/reservations");
+    };
+
+    const handleRemoveReservations = (id) => {
         // Send a DELETE request to remove the space
-        fetch(`http://localhost:8080/spaces/${id}`, {
+        fetch(`http://localhost:8080/reservations/${id}`, {
             method: 'DELETE',
         })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }                
-                setSpaces((prevSpaces) => prevSpaces.filter((space) => space.id !== id));
+                setReservations((prevReservations) => prevReservations.filter((reservation) => reservation.id !== id));
             })
             .catch((error) => {
                 console.error('There was a problem with the DELETE operation:', error);
@@ -72,12 +78,21 @@ const ManageReservations = () => {
                         </Typography>
                         <Button
                             fullWidth
-                            onClick={handleAddSpace}
+                            onClick={handleAdmin}
                             variant="contained"
                             color="primary"
                             sx={{ ml: 1, boxShadow: '2px 2px 5px rgba(0,0,0,0.3)', mt: 2 }}
                         >
-                            Add a Reservations
+                            Admin Main Page
+                        </Button>
+                        <Button
+                            fullWidth
+                            onClick={handleAddReservation}
+                            variant="contained"
+                            color="primary"
+                            sx={{ ml: 1, boxShadow: '2px 2px 5px rgba(0,0,0,0.3)', mt: 2 }}
+                        >
+                            Create New Reservation
                         </Button>
                     </Grid>
                 </Grid>
@@ -90,24 +105,24 @@ const ManageReservations = () => {
                     </Grid>
                 ) : (
                     <List>
-                        {spaces.map((space, index) => (
-                            <React.Fragment key={space.id}>
+                        {reservations.map((reservation, index) => (
+                            <React.Fragment key={reservation.id}>
                                 <ListItem>
                                     <ListItemText
                                         primaryTypographyProps={{ variant: 'h6', color: 'textPrimary' }}
-                                        primary={`Room Name: ${space.roomName} Room Number: ${space.roomNumber}`}
-                                        secondary={`Building Name: ${space.buildingName} Building Number: ${space.buildingNumber}`}
+                                        primary={`Held in Room: ${reservation.roomId} Meeting Name: ${reservation.meetingName}`}
+                                        secondary={`Meeting Description: ${reservation.meetingDescription} Start Time: ${reservation.meetingStart}`}
                                     />
                                     <ListItemSecondaryAction>
-                                        <IconButton edge="end" color="primary" onClick={() => handleEditSpace(space.id)}>
+                                        <IconButton edge="end" color="primary" onClick={() => handleEditSpace(reservation.id)}>
                                             <EditIcon />
                                         </IconButton>
-                                        <IconButton edge="end" color="error" onClick={() => handleRemoveSpace(space.id)}>
+                                        <IconButton edge="end" color="error" onClick={() => handleRemoveReservations(reservation.id)}>
                                             <DeleteIcon />
                                         </IconButton>
                                     </ListItemSecondaryAction>
                                 </ListItem>
-                                {index !== spaces.length - 1 && <Divider />}
+                                {index !== reservations.length - 1 && <Divider />}
                             </React.Fragment>
                         ))}
                     </List>

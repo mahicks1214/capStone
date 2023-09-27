@@ -12,16 +12,17 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-// import { Link } from 'react-router-dom';
+// import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
 import { useThemeContext } from './ThemeContext';
-import EditIcon from '@mui/icons-material/Edit';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import Admin from './Admin';
+import { useUserContext} from "./UserContext";
 import { useParams } from 'react-router-dom';
-import { useUserContext } from './UserContext';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
 
 function fetchReservations(setReservations) {
   fetch('http://localhost:8080/reservations')
@@ -41,21 +42,19 @@ function fetchReservations(setReservations) {
 
 export default function LandingPage() {
   const [reservations, setReservations] = useState([]);
-  const [view, setView] = React.useState(null);
-  const { currentUser } = useUserContext();
   const { themeMode } = useThemeContext();
+  const  {currentUser}  = useUserContext();
   const { id } = useParams();
-
-  const handleView = (event) => {
-    setView(event.currentTarget);
-};
 
   useEffect(() => {
     fetchReservations(setReservations);
   }, []);
 
   return (
-    <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
+    <div>{
+      currentUser.isAdmin ? <Admin /> : 
+    
+      <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
       <CssBaseline />
       <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
         <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
@@ -159,5 +158,6 @@ export default function LandingPage() {
         </Paper>
       </main>
     </ThemeProvider>
-  );
+  
+}</div>);
 }

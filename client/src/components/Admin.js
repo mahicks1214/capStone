@@ -38,7 +38,13 @@ const Admin = () => {
     const handleAddSpace = () => {
         console.log('Adding a space...');
         alert('You pressed "Add a Space"');
-         navigate('/addspace');
+         navigate("/:userId/addspace");
+    };
+
+    const handleToManageReservations = () => {
+        
+        alert('You pressed "Manage Reservations"');
+         navigate("/:userId/ManageReservations");
     };
 
     const handleRemoveSpace = (id) => {
@@ -59,7 +65,7 @@ const Admin = () => {
 
     const handleEditSpace = (id) => {        
         console.log(`Editing space with ID: ${id}`);
-        navigate(`/editspace/${id}`);
+        navigate(`/:userId/editspace/:id`);
     };
 
     return (
@@ -78,6 +84,15 @@ const Admin = () => {
                             sx={{ ml: 1, boxShadow: '2px 2px 5px rgba(0,0,0,0.3)', mt: 2 }}
                         >
                             Add a Space
+                        </Button>
+                        <Button
+                            fullWidth
+                            onClick={handleToManageReservations}
+                            variant="contained"
+                            color="primary"
+                            sx={{ ml: 1, boxShadow: '2px 2px 5px rgba(0,0,0,0.3)', mt: 2 }}
+                        >
+                            Manage Reservation
                         </Button>
                     </Grid>
                 </Grid>
