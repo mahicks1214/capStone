@@ -23,4 +23,3 @@ exports.down = function(knex) {
     return knex.schema.dropTableIfExists('users_table')
 };
 
-

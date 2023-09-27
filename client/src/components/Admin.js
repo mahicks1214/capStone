@@ -110,7 +110,7 @@ const Admin = () => {
                                 <ListItem>
                                     <ListItemText
                                         primaryTypographyProps={{ variant: 'h6', color: 'textPrimary' }}
-                                        primary={`Room Name: ${space.roomName} Room Number: ${space.roomNumber}`}
+                                        primary={`Room Name: ${space.spaceName} Room Number: ${space.spaceNumber}`}
                                         secondary={`Building Name: ${space.buildingName} Building Number: ${space.buildingNumber}`}
                                     />
                                     <ListItemSecondaryAction>

@@ -44,6 +44,7 @@ function App() {
           <Route path="/users/:userId/edit" element={<UpdateUser />} />
           <Route path="/users/create" element={<AddUser />} />
           <Route path="/users" element={<ViewUsers />} />
+          <Route path="/:userId/Reservation" element={<Reservation />} />        
         </Routes>
         <Footer />
       </UserContextProvider>

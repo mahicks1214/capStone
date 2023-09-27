@@ -53,7 +53,7 @@ const DeleteSpace = () => {
                                     </Typography>
 
                                     <Typography variant="body1">
-                                        Room Name: {space.roomName}
+                                        Room Name: {space.spaceName}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
