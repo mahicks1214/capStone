@@ -24,12 +24,8 @@ import { useThemeContext } from './ThemeContext';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { useUserContext } from './UserContext';
 
-<<<<<<< HEAD:client/src/components/DeleteReservations.js
-const DeleteReservations = () => {
-=======
-const ManageReservations = () => {
 
->>>>>>> 2d74136 (Redid the Reservation rendering for the View and the Create):client/src/components/ManageReservations.js
+const DeleteReservations = () => {
     const [reservations, setReservations] = useState([]);
     const [dataReceived, setDataReceived] = useState(false);
     const [isLoading, setIsLoading] = useState(true);

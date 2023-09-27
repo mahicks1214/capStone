@@ -9,13 +9,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 <<<<<<< HEAD:client/src/components/CreateSpace.js
 const CreateSpace = () => {
-    const [roomName, setRoomName] = useState('');
-    const [roomNumber, setRoomNumber] = useState('');
-=======
-const AddSpace = () => {
     const [spaceName, setSpaceName] = useState('');
     const [spaceNumber, setSpaceNumber] = useState('');
->>>>>>> 2d74136 (Redid the Reservation rendering for the View and the Create):client/src/components/AddSpace.js
     const [buildingName, setBuildingName] = useState('');
     const [buildingNumber, setBuildingNumber] = useState('');
     const [equipment, setEquipment] = useState('');

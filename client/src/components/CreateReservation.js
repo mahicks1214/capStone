@@ -45,7 +45,8 @@ const CreateReservation = ({ spaces }) => {
                 formData.get('meetingDuration').toString().length === 0 ? "" : formData.get('meetingDuration')),
 
 
-<<<<<<< HEAD:client/src/components/CreateReservation.js
+<<<<<<< HEAD:client/src/components/Reservation.js
+=======
 const CreateReservation = ({ spaces }) => {
     const { userId, roomId, roomName } = useParams();
     const [meetingStart, setMeetingStart] = useState('');
@@ -53,8 +54,7 @@ const CreateReservation = ({ spaces }) => {
     const [meetingName, setMeetingName] = useState('');
     const [meetingDescription, setMeetingDescription] = useState('');
     const [attendees, setAttendees] = useState(['']);
-=======
->>>>>>> 2d74136 (Redid the Reservation rendering for the View and the Create):client/src/components/Reservation.js
+>>>>>>> 55c4163 (Changed names to reflect CRUD operations and added some links.):client/src/components/CreateReservation.js
 
         };
         fetch('http://localhost:8080/reservations/create ', {
