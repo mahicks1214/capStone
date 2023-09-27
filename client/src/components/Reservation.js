@@ -4,151 +4,147 @@ import {
     Button, Typography, TextField, Box
 } from '@mui/material';
 import { Link as RouterLink, useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import Switch from '@mui/material/Switch';
+import DefaultTheme from "./DefaultTheme";
+import DarkTheme from "./DarkTheme";
+import CssBaseline from '@mui/material/CssBaseline';
+import AppBar from '@mui/material/AppBar';
+import { ThemeProvider } from '@emotion/react';
+import { useThemeContext } from './ThemeContext';
 
 
-const Reservation = ({ spaces }) => {
-    const { userId, roomId, roomName } = useParams();
-    const [meetingStart, setMeetingStart] = useState('');
-    const [meetingDuration, setMeetingDuration] = useState('');
-    const [meetingName, setMeetingName] = useState('');
-    const [meetingDescription, setMeetingDescription] = useState('');
-    const [attendees, setAttendees] = useState(['']);
+const CreateReservation = ({ spaces }) => {    
+    const navigate = useNavigate();      
+    const { themeMode } = useThemeContext();
 
-    const handleSubmit = () => {
-        const data = {
-            userId: userId,
-            roomId: roomId,
-            meetingName: meetingName,
-            meetingDescription: meetingDescription,
-            attendees: attendees,
-            meetingStart: meetingStart,
-            meetingDuration: meetingDuration
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        var formData = new FormData(event.currentTarget)
+
+        let editReservation = {
+
+            meetingName: (formData.get('meetingName') === null ? "" :
+                formData.get('meetingName').toString().length === 0 ? "" : formData.get('meetingName')),
+
+            spaceNumber: (formData.get('spaceNumber') === null ? "" :
+                formData.get('spaceNumber').toString().length === 0 ? "" : formData.get('spaceNumber')),
+
+            meetingDescription: (formData.get('meetingDescription') === null ? "" :
+                formData.get('meetingDescription').toString().length === 0 ? "" : formData.get('meetingDescription')),
+
+            attendees: (formData.get('attendees') === null ? "" :
+                formData.get('attendees').toString().length === 0 ? "" :
+                formData.get('attendees').toString().length === 0 ? "" : formData.get('attendees')),
+
+            meetingStart: (formData.get('meetingStart') === null ? "" :
+                formData.get('meetingStart').toString().length === 0 ? "" : formData.get('meetingStart')),
+
+            meetingDuration: (formData.get('meetingDuration') === null ? "" :
+                formData.get('meetingDuration').toString().length === 0 ? "" : formData.get('meetingDuration')),
+
+
+
         };
-
-        console.log('reservation data entry:', data);
-
         fetch('http://localhost:8080/reservations/create ', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(editReservation),
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+            .then((rawResponse) => {
+                if (!rawResponse.ok) {
+                    throw new Error(
+                        `code: ${rawResponse.status}, status text: ${rawResponse.statusText}`
+                    );
                 }
-                alert('Reservation added successfully!');
+                return rawResponse.json();
+            })
+            .then((response) => {
+                navigate("/");
             })
             .catch((error) => {
-                console.error('There was a problem with the POST operation:', error);
+                navigate("/");
             });
+
     };
 
-    return (
-        <Container>
-            <Box mt={12}>
-                <Grid container justifyContent="center">
-                    <Grid item xs={12} sm={6}>
-                        <Card sx={{ mb: 3 }}>
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    Make a reservation in the {roomName} Space!
-                                </Typography>
 
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        {/* meetingStart */}
-                                        <TextField
-                                            fullWidth
-                                            id="meetingStart"
-                                            label="Meeting Start"
-                                            variant="outlined"
-                                            placeholder="YYYY-MM-DD HH:mm"
-                                            type="datetime-local"
-                                            value={meetingStart}
-                                            onChange={(e) => setMeetingStart(e.target.value)}
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                        />
-                                    </Grid>
 
-                                    <Grid item xs={12}>
-                                        {/* meetingDuration */}
-                                        <TextField
-                                            fullWidth
-                                            id="meetingDuration"
-                                            label="Meeting Duration (in minutes)"
-                                            variant="outlined"
-                                            placeholder="60"
-                                            type="number"
-                                            value={meetingDuration}
-                                            onChange={(e) => setMeetingDuration(e.target.value)}
-                                        />
-                                    </Grid>
 
-                                    <Grid item xs={12}>
-                                        {/* meetingName */}
-                                        <TextField
-                                            fullWidth
-                                            id="meetingName"
-                                            label="Meeting Name"
-                                            placeholder="Enter Meeting Name"
-                                            variant="outlined"
-                                            value={meetingName}
-                                            onChange={(e) => setMeetingName(e.target.value)}
-                                        />
-                                    </Grid>
 
-                                    <Grid item xs={12}>
-                                        {/* attendees */}
-                                        <TextField
-                                            fullWidth
-                                            id="attendees"
-                                            label="Attendees"
-                                            placeholder="Jane Doe, Jon Doe, etc."
-                                            variant="outlined"
-                                            value={attendees}
-                                            onChange={(e) => setAttendees(e.target.value)}
-                                        />
-                                    </Grid>
 
-                                    <Grid item xs={12}>
-                                        {/* description */}
-                                        <TextField
-                                            fullWidth
-                                            id="Description"
-                                            label="Description"
-                                            placeholder="Brief description of the meeting"
-                                            variant="outlined"
-                                            value={meetingDescription}
-                                            onChange={(e) => setMeetingDescription(e.target.value)}
-                                        />
-                                    </Grid>
 
+    
+
+return (
+    <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
+            <CssBaseline />
+            <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
+                <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
+                    Add Reservation
+                </Typography>
+            </AppBar>
+            <Box sx={{ flexGrow: 1 }}>
+                <div>
+                    <center>
+                        <Box
+                            component="form"
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                '& .MuiTextField-root': { width: '25ch' },
+                                color: themeMode.primary,
+                            }}
+                            onSubmit={handleSubmit}
+                        >
+                            <Grid container spacing={1}>
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            height: 50,
+                                        }}>
+                                        <center>
+                                            <h2>Create a new Reservation</h2>
+                                        </center>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            '& .MuiTextField-root': { width: '25ch' },
+                                        }}>
+                                        <TextField sx={{ input: { color: themeMode.secondary } }} name="meetingName" label={'Meeting Name'} id="EditFormMeetingName" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />
+                                        <TextField sx={{ input: { color: themeMode.secondary } }} name="spaceNumber" label={'Space Number'} id="EditFormSpaceNumber" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />
+                                        <TextField sx={{ input: { color: themeMode.secondary } }} name="meetingDescription" label={'Meeting Description'} id="EditFormMeetingDescription" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />
+                                        <TextField sx={{ input: { color: themeMode.secondary } }} name="attendees" label={'Attendees'} id="EditFormAttendees" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />
+                                        <TextField sx={{ input: { color: themeMode.secondary } }} name="meetingStart" label={'Meeting Start'} id="EditFormMeetingStart" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />                                        
+                                        <TextField sx={{ input: { color: themeMode.secondary } }} name="meetingDuration" label={'Meeting Duration'} id="EditFormMeetingDuration" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />                                                                               
+                                        <Box
+                                            sx={{
+                                                padding: '5px'
+                                            }}>
+                                            <Button
+                                                variant="contained"
+                                                margin="normal"
+                                                type="submit"
+                                                color={themeMode === "dark" ? "primary" : "secondary"}
+                                            >Add Reservation</Button>
+                                        </Box>
+                                    </Box>
                                 </Grid>
-                            </CardContent>
-                            <CardActions>
-                                <Button
-                                    fullWidth
-                                    onClick={handleSubmit}
-                                    variant="contained"
-                                    color="primary"
-                                    component={RouterLink}
-                                    to={`/userhomepage`}
-                                    sx={{ ml: 1, boxShadow: '2px 2px 5px rgba(0,0,0,0.3)', mt: 2 }}
-                                >
-                                    Make Reservation
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                </Grid>
+                            </Grid>
+                        </Box>
+                    </center>
+                </div>
             </Box>
-        </Container>
-    );
+        </ThemeProvider>
+);
 };
 
 
-export default Reservation;
+export default CreateReservation;

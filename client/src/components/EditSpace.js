@@ -74,21 +74,21 @@ const EditSpace = () => {
                                         <Grid item xs={12}>
                                             <TextField
                                                 fullWidth
-                                                id="roomName"
+                                                id="spaceName"
                                                 label="Room Name"
                                                 variant="outlined"
-                                                value={space.roomName}
-                                                onChange={(e) => setSpace({ ...space, roomName: e.target.value })}
+                                                value={space.spaceName}
+                                                onChange={(e) => setSpace({ ...space, spaceName: e.target.value })}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
                                             <TextField
                                                 fullWidth
-                                                id="roomNumber"
+                                                id="spaceNumber"
                                                 label="Room Number"
                                                 variant="outlined"
-                                                value={space.roomNumber}
-                                                onChange={(e) => setSpace({ ...space, roomNumber: e.target.value })}
+                                                value={space.spaceNumber}
+                                                onChange={(e) => setSpace({ ...space, spaceNumber: e.target.value })}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>

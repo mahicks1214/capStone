@@ -51,8 +51,8 @@ export default function RoomsMenu() {
                     // </Link>
                     : null}
                 { /* These are handled within "/rooms" as administrator*/ }
-                {isAuthenticated && currentUser.isAdmin ? <MenuItem href="/rooms/:roomid/edit" onClick={handleClose}>Edit Room</MenuItem> : null}
-                {isAuthenticated && currentUser.isAdmin ? <MenuItem href="/rooms/:roomid/delete" onClick={handleClose}>Delete Room</MenuItem> : null}
+                {isAuthenticated && currentUser.isAdmin ? <MenuItem href="/rooms/:spaceid/edit" onClick={handleClose}>Edit Room</MenuItem> : null}
+                {isAuthenticated && currentUser.isAdmin ? <MenuItem href="/rooms/:spaceid/delete" onClick={handleClose}>Delete Room</MenuItem> : null}
             </Menu>
         </div>
     );

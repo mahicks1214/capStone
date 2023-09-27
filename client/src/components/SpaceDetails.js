@@ -35,7 +35,7 @@ const defaultTheme = createTheme();
 
 export default function LandingPage() {
     const [spaces, setSpaces] = useState([]);
-    const { id, roomName } = useParams();
+    const { id, spaceName } = useParams();
     useEffect(() => {
         fetchReservations(setSpaces);
     }, []);
@@ -87,10 +87,10 @@ export default function LandingPage() {
                                     />
                                     <CardContent sx={{ flexGrow: 1 }}>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            Space - {spaces.roomName}
+                                            Space - {spaces.spaceName}
                                         </Typography>
                                         <Typography gutterBottom variant="h5" component="h3">
-                                            Building - {spaces.buildingName}, Room {spaces.roomNumber}
+                                            Building - {spaces.buildingName}, Room {spaces.spaceNumber}
                                         </Typography>
                                         <Typography>
                                             Classification - {spaces.classification}, Network - {spaces.netWork}
