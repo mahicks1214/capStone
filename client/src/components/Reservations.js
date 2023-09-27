@@ -24,7 +24,7 @@ import { useThemeContext } from './ThemeContext';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { useUserContext } from './UserContext';
 
-const ManageReservations = () => {
+const Reservations = () => {
 
     const [reservations, setReservations] = useState([]);
     const [dataReceived, setDataReceived] = useState(false);
@@ -178,4 +178,4 @@ const ManageReservations = () => {
     );
 }
 
-export default ManageReservations;
+export default Reservations;

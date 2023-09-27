@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const EditReservation = () => {
+const UpdateReservation = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [reservation, setReservation] = useState({
@@ -135,4 +135,4 @@ const EditReservation = () => {
     );
 };
 
-export default EditReservation;
+export default UpdateReservation;
