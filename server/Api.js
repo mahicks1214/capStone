@@ -277,6 +277,17 @@ api.delete("/reservations/delete/:id", (req, res) => {
       .catch(res.status(400).send(`Unable to delete reservation!`));
 });
 
+// CRU[D] API endpoint for deleting existing reservations that are attached to a deleted user.
+api.delete("/reservations/:id/delete", (req, res) => {
+  const userId = req.params.id
+  knex("reservations_table")
+    .select("*")
+    .where({ userId: userId })
+    .del()
+    .then((data) => {res.status(200).send(`Reservations for user ${userId} deleted`)})
+    .catch((data) => {res.status(400).send(`Unable to delete reservation!`)});
+});
+
 
 // [C][R]UD API endpoint for reading a single user, selected by email, AND adding user if not present
 api.get("/users/email/:email", (req, res) => {
