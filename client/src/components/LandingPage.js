@@ -18,7 +18,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
 import { useThemeContext } from './ThemeContext';
-import Admin from './Admin';
 import { useUserContext} from "./UserContext";
 import { useParams } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -33,7 +32,7 @@ function fetchReservations(setReservations) {
       return response.json();
     })
     .then((data) => {
-      setReservations(data.slice(0, 6));
+      setReservations(data);
     })
     .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
@@ -42,8 +41,8 @@ function fetchReservations(setReservations) {
 
 export default function LandingPage() {
   const [reservations, setReservations] = useState([]);
-  const { themeMode } = useThemeContext();
-  const  {currentUser}  = useUserContext();
+  const { themeMode, capitalizeFirstLetter } = useThemeContext();
+  const { currentUser } = useUserContext();
   const { id } = useParams();
 
   useEffect(() => {
@@ -51,10 +50,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div>{
-      currentUser.isAdmin ? <Admin /> : 
-    
-      <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
       <CssBaseline />
       <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
         <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
@@ -71,7 +67,7 @@ export default function LandingPage() {
             pb: 0,
           }}
         >
-          <Container bgcolor='background.paper' maxWidth="sm">
+          <Container bgcolor='background.paper' maxWidth="lg">
             <Typography
               component="h1"
               variant="h2"
@@ -80,7 +76,7 @@ export default function LandingPage() {
               gutterBottom
               sx={{ fontWeight: 600 }}
             >
-              Upcoming Reservations!
+              Upcoming Reservations
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
               Below are reservations that are coming up soon! Book now to lock in your SpaceTime!
@@ -94,11 +90,10 @@ export default function LandingPage() {
             </Stack>
           </Container>
         </Box>
-        <Container sx={{ bgcolor: 'background.paper', py: 8 }} maxWidth="md">
+        <Container sx={{ bgcolor: 'background.paper', py: 8 }} maxWidth="lg">
           {/* End hero unit */}
           <Grid container spacing={4}>
             {reservations.map((reservations) => (
-              
               <Grid item key={reservations.id} xs={12}>
                 <Link to={`/${currentUser}/reservationdetails/${reservations.id}`} style={{ textDecoration: 'none' }}>
                 <Card sx={{
@@ -107,10 +102,8 @@ export default function LandingPage() {
                   alignItems: 'center',
                   boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
                   borderRadius: '8px',
-                  transition: 'transform .2s',
-                  '&:hover': {
-                    transform: 'scale(1.02)'
-                  }
+                  transition: 'transform .2s', '&:hover': { transform: 'scale(1.02)' },
+                  bgcolor: 'backgound.paper'
                 }}>
                   <CardMedia
                     component="div"
@@ -125,17 +118,17 @@ export default function LandingPage() {
                   />
                   <Box sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center', marginLeft: '16px' }}>
                     <CardContent sx={{ padding: '16px' }}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        Training Course - {reservations.meetingName}
+                      <Typography gutterBottom variant="h5" component="h2" fontWeight='fontWeightBold'>
+                        {capitalizeFirstLetter(reservations.meetingName)}
                       </Typography>
                       <Typography>
-                        In Room - {reservations.roomId}
+                        <Box component="span" fontWeight='fontWeightBold'>Description:</Box> {reservations.meetingDescription}
                       </Typography>
                       <Typography>
-                        Training Description - {reservations.meetingDescription}
+                        <Box component="span" fontWeight='fontWeightBold'>Start Time:</Box> {Date(reservations.meetingStart).toLocaleString()}
                       </Typography>
                       <Typography>
-                        Start Time - {reservations.meetingStart}
+                        <Box component="span" fontWeight='fontWeightBold'>Duration:</Box> {reservations.meetingDuration} Hours
                       </Typography>
                     </CardContent>
                     <CardActions>
@@ -158,6 +151,5 @@ export default function LandingPage() {
         </Paper>
       </main>
     </ThemeProvider>
-  
-}</div>);
-}
+  )
+};
