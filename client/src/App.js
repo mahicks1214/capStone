@@ -41,7 +41,9 @@ function App() {
         <Routes>
           {/* ---------- Root Route ----------- */}
           <Route path="/" element={<LandingPage />}/>
-          <Route path="/Reservations/:reservationId" element={<Reservation />} />
+          <Route path="/Users" element={<ViewUsers />} />
+          <Route path="/Spaces" element={<Rooms />} />
+          <Route path="/Reservations/" element={<Reservation />} />
 
           {/* ---------- User Routes ----------- */}
           <Route path="/:userId/Users/Create" element={<AuthenticationGuard component={AddUser} />} />
@@ -49,21 +51,21 @@ function App() {
           <Route path="/:userId/Users/Update" element={<AuthenticationGuard component={EditUser} />} />
 
           {/* ---------- Space Routes ----------- */}
-          <Route path="/:userId/Spaces/Create" element={<AddSpace />} />
-          <Route path="/:userId/Spaces" element={<Rooms />} />
-          <Route path="/:userId/Spaces/:id" element={<SpaceDetails />} />
-          <Route path="/:userId/Spaces/Update/:id" element={<EditSpace />} />
-          <Route path="/:userId/Spaces/Delete/:id" element={<RemoveSpace />} />
+          <Route path="/:userId/Spaces/Create" element={<AuthenticationGuard component={AddSpace} />} />
+          <Route path="/:userId/Spaces" element={<AuthenticationGuard component={Rooms} />} />
+          <Route path="/:userId/Spaces/:id" element={<AuthenticationGuard component={SpaceDetails} />} />
+          <Route path="/:userId/Spaces/Update/:id" element={<AuthenticationGuard component={EditSpace} />} />
+          <Route path="/:userId/Spaces/Delete/:id" element={<AuthenticationGuard component={RemoveSpace} />} />
 
           {/* ---------- Reservation Routes ---------- */}
-          <Route path="/:userId/Reservations/ManageReservations" element={<ManageReservations />} />
-          <Route path="/:userId/Reservations/editreservation/:id" element={<EditReservation />} />
-          <Route path="/:userId/Reservations/:spaceId" element={<Reservation />} />        
-          <Route path="/:userId/Reservations/:reservationId" element={<ReservationDetails />} />
+          <Route path="/:userId/Reservations/ManageReservations" element={<AuthenticationGuard component={ManageReservations} />} />
+          <Route path="/:userId/Reservations/editreservation/:id" element={<AuthenticationGuard component={EditReservation} />} />
+          <Route path="/:userId/Reservations/:spaceId" element={<AuthenticationGuard component={Reservation} />} />        
+          <Route path="/:userId/Reservations/:reservationId" element={<AuthenticationGuard component={ReservationDetails} />} />
 
           {/* ---------- Admin Routes ---------- */}
-          <Route path="/:userId/Admin" element={<Admin />} />
-          <Route path="/:userId/Account" element={<AccountSettings />} />
+          <Route path="/:userId/Admin" element={<AuthenticationGuard component={Admin} />} />
+          <Route path="/:userId/Account" element={<AuthenticationGuard component={AccountSettings} />} />
           
         </Routes>
         <Footer />
