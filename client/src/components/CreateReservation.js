@@ -6,7 +6,7 @@ import {
 import { Link as RouterLink, useParams } from 'react-router-dom';
 
 
-const Reservation = ({ spaces }) => {
+const CreateReservation = ({ spaces }) => {
     const { userId, roomId, roomName } = useParams();
     const [meetingStart, setMeetingStart] = useState('');
     const [meetingDuration, setMeetingDuration] = useState('');
@@ -151,4 +151,4 @@ const Reservation = ({ spaces }) => {
 };
 
 
-export default Reservation;
+export default CreateReservation;

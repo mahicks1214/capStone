@@ -17,7 +17,7 @@ import {
 import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
-const ManageReservations = () => {
+const DeleteReservations = () => {
     const [reservations, setReservations] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
@@ -132,4 +132,4 @@ const ManageReservations = () => {
     );
 };
 
-export default ManageReservations;
+export default DeleteReservations;

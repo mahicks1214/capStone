@@ -6,7 +6,7 @@ import {
 import { Link as RouterLink, useParams, useNavigate } from 'react-router-dom';
 import { FormControlLabel, Switch } from '@mui/material';
 
-const EditSpace = () => {
+const UpdateSpace = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [space, setSpace] = useState({
@@ -189,4 +189,4 @@ const EditSpace = () => {
     );
 };
 
-export default EditSpace;
+export default UpdateSpace;

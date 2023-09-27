@@ -7,7 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-const AddSpace = () => {
+const CreateSpace = () => {
     const [roomName, setRoomName] = useState('');
     const [roomNumber, setRoomNumber] = useState('');
     const [buildingName, setBuildingName] = useState('');
@@ -187,4 +187,4 @@ const AddSpace = () => {
     );
 };
 
-export default AddSpace;
+export default CreateSpace;

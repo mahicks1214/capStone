@@ -129,7 +129,7 @@ export default function LandingPage() {
                         Training Course - {reservations.meetingName}
                       </Typography>
                       <Typography>
-                        In Room - {reservations.roomId}
+                        In Space - {reservations.spaceId}
                       </Typography>
                       <Typography>
                         Training Description - {reservations.meetingDescription}
@@ -140,10 +140,10 @@ export default function LandingPage() {
                     </CardContent>
                     <CardActions>
                       <Stack direction="column" spacing={1}>
-                      <Link to={`/${reservations.id}/spacedetails/${reservations.spaceId}`} underline="none">
+                      <Link to={`/${currentUser}/reservationdetails/${reservations.id}`} style={{ textDecoration: 'none' }}>
                         <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
                         </Link>
-                        <Link to={`/${id}/editspace/${reservations.id}`} style={{ textDecoration: 'none' }}>
+                        <Link to={`/${currentUser}/editreservation/${reservations.id}`} style={{ textDecoration: 'none' }}>
                         <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
                         </Link>
                       </Stack>

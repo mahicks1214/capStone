@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 
-const RemoveSpace = () => {
+const DeleteSpace = () => {
     const { id } = useParams(); 
     const [space, setSpace] = useState(null);
 
@@ -82,4 +82,4 @@ const RemoveSpace = () => {
     );
 };
 
-export default RemoveSpace;
+export default DeleteSpace;
