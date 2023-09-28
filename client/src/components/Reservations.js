@@ -119,9 +119,6 @@ export default function LandingPage() {
                         {capitalizeFirstLetter(reservation.meetingName)}
                       </Typography>
                       <Typography>
-                        <Box component="span" fontWeight='fontWeightBold'>reservation ID:</Box> {reservation.id}
-                      </Typography>
-                      <Typography>
                         <Box component="span" fontWeight='fontWeightBold'>Meeting Space:</Box> {reservation.spaceId}
                       </Typography>
                       <Typography>

@@ -75,9 +75,16 @@ export default function LandingPage() {
             >
               Welcome to SpaceTime!
             </Typography>
+
+            {currentUser.isAdmin ?
+            <Typography variant="h5" align="center" color="text.secondary" paragraph>
+              View or Edit your SpaceTime reservations below!
+            </Typography>
+            :
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
               Upcoming reservations are provided below. Login or Sign Up to reserve your SpaceTime!
-            </Typography>
+            </Typography>}
+
             <Stack
               sx={{ pt: 4 }}
               direction="row"
