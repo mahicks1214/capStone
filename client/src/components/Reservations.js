@@ -54,7 +54,7 @@ const Reservations = () => {
 
     const handleRemoveReservations = (id) => {
         // Send a DELETE request to remove the space
-        fetch(`http://localhost:8080/reservations/${id}`, {
+        fetch(`http://localhost:8080/reservations/delete/${id}`, {
             method: 'DELETE',
         })
             .then((response) => {
@@ -69,8 +69,7 @@ const Reservations = () => {
     };
 
     const handleEditReservation = (id) => {
-        console.log(`Editing reservation with ID: ${id}`);
-        navigate(`/:userId/editreservation/${id}`);
+        navigate(`/${currentUser.id}/Reservations/editReservation/${id}`);
     };
 
     return (
@@ -149,7 +148,7 @@ const Reservations = () => {
                                                     Meeting Description - {reservation.meetingDescription}
                                                 </Typography>
                                                 <Typography>
-                                                    Attedning - {reservation.attendees}
+                                                    Attending - {reservation.attendees}
                                                 </Typography>
                                                 <Typography>
                                                     Meeting Start Time - {reservation.meetingStart}
@@ -159,12 +158,12 @@ const Reservations = () => {
                                                 </Typography>
                                             </CardContent>
                                             <CardActions>
-
+                                                { currentUser.isAdmin ? 
                                                 <Stack direction="column" spacing={1}>
                                                     <Button startIcon={<EditIcon />} size="small" sx={{ width: "100px" }} variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => handleEditReservation(reservation.id) }>Edit</Button>
                                                     <Button startIcon={<PersonRemoveIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => handleRemoveReservations(reservation.id)}>Delete</Button>
                                                 </Stack>
-
+                                                : null }
                                             </CardActions>
                                         </Box>
                                     </Card>

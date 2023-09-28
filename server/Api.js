@@ -202,7 +202,7 @@ api.post('/reservations/create', (req, res) => {
         res.send(
             req.body.id,
             req.body.userId,
-            req.body.roomId,
+            req.body.spaceId,
             req.body.meetingName,
             req.body.meetingDescription,
             req.body.attendees,
@@ -239,6 +239,24 @@ const reservationId = req.params.id;
         res.status(500).json({ error: error.message });
     });
 });
+
+// C[R]UD API endpoint for reading a single reservation, selected by reservationId
+api.get("/users/:id/reservations", (req, res) => {
+  const Id = req.params.id;
+      knex('reservations_table')
+          .select("*")
+          .where({ userId: Id })
+          .then((reservation) => {
+          if (reservation) {
+              res.send(reservation);
+          } else {
+              res.status(404).json({ message: "Reservation not found" });
+          }
+          })
+          .catch((error) => {
+          res.status(500).json({ error: error.message });
+      });
+  });
 
 // CR[U]D API endpoint for updating an existing reservation, selected by id
 api.patch("/reservations/update/:id", (req, res) => {

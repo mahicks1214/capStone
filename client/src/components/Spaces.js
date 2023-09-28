@@ -14,10 +14,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
 import { useThemeContext } from './ThemeContext';
+import { useUserContext } from './UserContext';
+import { useNavigate } from 'react-router-dom';
 
 
-function fetchReservations(setSpaces) {
-    fetch('http://localhost:8080/spaces')
+function fetchReservations(setSpaces, setDataReceived) {
+    fetch('http://localhost:8080/Spaces')
         .then((response) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -25,7 +27,8 @@ function fetchReservations(setSpaces) {
             return response.json();
         })
         .then((data) => {
-            setSpaces(data.slice(0, 6));
+            setSpaces(data);
+            setDataReceived(true);
         })
         .catch((error) => {
             console.error('There was a problem with the fetch operation:', error);
@@ -35,12 +38,15 @@ function fetchReservations(setSpaces) {
 export default function LandingPage() {
     const [spaces, setSpaces] = useState([]);
     const { themeMode } = useThemeContext();
+    const [dataReceived, setDataReceived] = useState(false);
+    const { currentUser } = useUserContext();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetchReservations(setSpaces);
-    }, []);
+        fetchReservations(setSpaces, setDataReceived);
+    }, [dataReceived]);
 
-    return (
+    return dataReceived ? (
         <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
             <CssBaseline />
             <main>
@@ -72,8 +78,8 @@ export default function LandingPage() {
                 </Box>
                 <Container sx={{ py: 8 }} maxWidth="md">
                     <Grid container spacing={4}>
-                        {spaces.map((spaces) => (
-                            <Grid item key={spaces.id} xs={12} sm={6} md={3}>
+                        {spaces.map((space) => (
+                            <Grid item key={space.id} xs={12} sm={6} md={3}>
                                 <Card
                                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                                 >
@@ -87,27 +93,28 @@ export default function LandingPage() {
                                     />
                                     <CardContent sx={{ flexGrow: 1 }}>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            Space - {spaces.spaceName}
+                                            Space - {space.spaceName}
                                         </Typography>
                                         <Typography gutterBottom variant="h5" component="h3">
-                                            Building - {spaces.buildingName}, Room {spaces.spaceNumber}
+                                            Building - {space.buildingName}, Room {space.spaceNumber}
                                         </Typography>
                                         <Typography>
-                                            Classification - {spaces.classification}, Network - {spaces.netWork}
+                                            Classification - {space.classification}, Network - {space.netWork}
                                         </Typography>
                                         <Typography>
-                                            Seating - {spaces.seating}, Trainer - {spaces.isTrainer ? "Yes" : "No"}
+                                            Seating - {space.seating}, Trainer - {space.isTrainer ? "Yes" : "No"}
                                         </Typography>
                                         <Typography>
-                                            Equipment - {spaces.equipment}
+                                            Equipment - {space.equipment}
                                         </Typography>
                                     </CardContent>
+                                    { !currentUser.guest ?
                                     <CardActions>
                                         <Stack direction="column" spacing={1}>
-                                            <Button size="small">View</Button>
-                                            <Button size="small">Book this Room!</Button>
+                                            <Button size="small" onClick={() => {navigate(`/${currentUser.id}/Reservations/${space.id}`)}}>Book this Room!</Button>
                                         </Stack>
                                     </CardActions>
+                                    : null }
                                 </Card>
                             </Grid>
                         ))}
@@ -115,5 +122,5 @@ export default function LandingPage() {
                 </Container>
             </main>
         </ThemeProvider>
-    );
+    ) : <span>The space data was not retrieved.</span>;
 }

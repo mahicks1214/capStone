@@ -4,10 +4,12 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import { Link } from 'react-router-dom';
+import { useUserContext } from './UserContext';
 
 export default function UsersMenu() {
   
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { currentUser } = useUserContext();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,8 +40,8 @@ export default function UsersMenu() {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem component={Link} to="/users" onClick={handleClose}>View Users</MenuItem>
-        <MenuItem component={Link} to="/users/create" onClick={handleClose}>Add User</MenuItem>
+        <MenuItem component={Link} to={`/${currentUser.id}/Users`} onClick={handleClose}>View Users</MenuItem>
+        <MenuItem component={Link} to={`/${currentUser.id}/Users/Create`} onClick={handleClose}>Add User</MenuItem>
         { /* These are handled within "/users" as an administrator*/ }
         {/* <MenuItem href="/users/:userid/edit" onClick={handleClose}>Edit User</MenuItem> */}
         {/* <MenuItem href="/users/:userid/delete" onClick={handleClose}>Delete User</MenuItem> */}

@@ -7,7 +7,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 const UpdateReservation = () => {
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { userId, id } = useParams();
     const [reservation, setReservation] = useState({
         userId: '',
         roomId: '',
@@ -49,7 +49,7 @@ const UpdateReservation = () => {
                     throw new Error(`Network response was not ok: ${response.status}`);
                 }
                 alert(`Reservation with ID ${id} updated successfully!`);
-                navigate(`/reservations/${id}`);
+                navigate(`/Reservations`);
             })
             .catch((error) => {
                 console.error('There was a problem with the PATCH operation:', error);
