@@ -70,10 +70,10 @@ export default function CreateSpace() {
                 return rawResponse.json();
             })
             .then((response) => {
-                navigate("/");
+                navigate("/Spaces");
             })
             .catch((error) => {
-                navigate("/");
+                navigate("/Spaces");
             });
 
     };
@@ -122,9 +122,9 @@ export default function CreateSpace() {
                                         <TextField sx={{ input: { color: themeMode.secondary } }} name="buildingName" label={'Building Name'} id="EditFormBuildingName" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />
                                         <TextField sx={{ input: { color: themeMode.secondary } }} name="buildingNumber" label={'Building Number'} id="EditFormBuildingNumber" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />
                                         <TextField sx={{ input: { color: themeMode.secondary } }} name="equipment" label={'Equipment'} id="EditFormEquipment" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />
-                                        <TextField sx={{ input: { color: themeMode.secondary } }} name="seating" label={'Seating'} id="EditSeating" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" type="password" size="small" focused />
+                                        <TextField sx={{ input: { color: themeMode.secondary } }} name="seating" label={'Seating'} id="EditSeating" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />
                                         <TextField sx={{ input: { color: themeMode.secondary } }} name="classification" label={'Classification'} id="EditFormClassification" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />
-                                        <TextField sx={{ input: { color: themeMode.secondary } }} name="network" label={'Network'} id="EditFormNetwork" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" type="password" size="small" focused />
+                                        <TextField sx={{ input: { color: themeMode.secondary } }} name="network" label={'Network'} id="EditFormNetwork" color={themeMode === "dark" ? "primary" : "secondary"} margin="normal" size="small" focused />
 
                                         <span>Trainer?</span>
                                         <Switch {...label} checked={isTrainer} onChange={handleChange} color={themeMode === "dark" ? "primary" : "secondary"} />

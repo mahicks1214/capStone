@@ -41,7 +41,7 @@ export default function UsersMenu() {
         TransitionComponent={Fade}
       >
         <MenuItem component={Link} to={`/${currentUser.id}/Users`} onClick={handleClose}>View Users</MenuItem>
-        <MenuItem component={Link} to={`/${currentUser.id}/Users/Create`} onClick={handleClose}>Add User</MenuItem>
+        <MenuItem component={Link} to={`/${currentUser.id}/Users/Create`} onClick={handleClose}>Create User</MenuItem>
         { /* These are handled within "/users" as an administrator*/ }
         {/* <MenuItem href="/users/:userid/edit" onClick={handleClose}>Edit User</MenuItem> */}
         {/* <MenuItem href="/users/:userid/delete" onClick={handleClose}>Delete User</MenuItem> */}

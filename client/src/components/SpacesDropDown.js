@@ -45,7 +45,7 @@ export default function RoomsMenu() {
             >
                     <MenuItem component={Link} to="/Spaces" onClick={handleClose}>View Spaces</MenuItem>
                 {isAuthenticated && currentUser.isAdmin ?
-                        <MenuItem component={Link} to={`/${currentUser.id}/Spaces/Create`} onClick={handleClose}>Add Space</MenuItem>
+                        <MenuItem component={Link} to={`/${currentUser.id}/Spaces/Create`} onClick={handleClose}>Create Space</MenuItem>
                     : null}
             </Menu>
         </div>
