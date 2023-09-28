@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Paper from '@mui/material/Paper';
+import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -10,117 +12,146 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
 import { useThemeContext } from './ThemeContext';
-import { useUserContext } from './UserContext';
-import { useNavigate } from 'react-router-dom';
+import { useUserContext} from "./UserContext";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
 
-
-function fetchReservations(setSpaces, setDataReceived) {
-    fetch('http://localhost:8080/Spaces')
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then((data) => {
-            setSpaces(data);
-            setDataReceived(true);
-        })
-        .catch((error) => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
+function fetchReservations(setReservations) {
+  fetch('http://localhost:8080/spaces')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setReservations(data);
+    })
+    .catch((error) => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
 }
 
 export default function LandingPage() {
-    const [spaces, setSpaces] = useState([]);
-    const { themeMode } = useThemeContext();
-    const [dataReceived, setDataReceived] = useState(false);
-    const { currentUser } = useUserContext();
-    const navigate = useNavigate();
+  const [spaces, setReservations] = useState([]);
+  const { themeMode, capitalizeFirstLetter } = useThemeContext();
+  const { currentUser } = useUserContext();
 
-    useEffect(() => {
-        fetchReservations(setSpaces, setDataReceived);
-    }, [dataReceived]);
+  useEffect(() => {
+    fetchReservations(setReservations);
+  }, []);
 
-    return dataReceived ? (
-        <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
-            <CssBaseline />
-            <main>
-                <Box
+  return (
+    <ThemeProvider theme={themeMode === "dark" ? DarkTheme : DefaultTheme}>
+      <CssBaseline />
+      <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
+        <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
+          Available Spaces
+        </Typography>
+      </AppBar>
+      <main>
+      <Paper bgcolor='background.paper' elevation={0} maxWidth="lg">
+        {/* Hero unit */}
+        <Box
+          sx={{
+            bgcolor: 'background.paper',
+            pt: 8,
+            pb: 0,
+          }}
+        >
+          <Container bgcolor='background.paper' maxWidth="lg">
+            <Typography
+              component="h1"
+              variant="h2"
+              align="center"
+              color="text.primary"
+              gutterBottom
+              sx={{ fontWeight: 600 }}
+            >
+              Available Spaces
+            </Typography>
+            <Typography variant="h5" align="center" color="text.secondary" paragraph>
+            Available Spaces are provided below. Login or Sign Up to reserve your Space!
+            </Typography>
+            <Stack
+              sx={{ pt: 4 }}
+              direction="row"
+              spacing={2}
+              justifyContent="center"
+            >
+            </Stack>
+          </Container>
+        </Box>
+        <Container sx={{ bgcolor: 'background.paper', py: 8 }} maxWidth="lg">
+          {/* End hero unit */}
+          <Grid container spacing={4}>
+            {spaces.map((space) => (
+              <Grid item key={space.id} xs={12}>
+                <Link to={`/Spaces/${space.id}`} style={{ textDecoration: 'none' }}>
+                <Card sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '8px',
+                  transition: 'transform .2s', '&:hover': { transform: 'scale(1.02)' },
+                  bgcolor: 'backgound.paper'
+                }}>
+                  <CardMedia
+                    component="div"
                     sx={{
-                        bgcolor: 'background.paper',
-                        pt: 8,
-                        pb: 6,
+                      width: 200,
+                      height: 200,
+                      backgroundSize: 'cover',
+                      borderRadius: '8px 0 0 8px',
+                      padding: '16px'
                     }}
-                >
-                    <Container maxWidth="sm">
-                        <Typography
-                            component="h1"
-                            variant="h2"
-                            align="center"
-                            color="text.primary"
-                            gutterBottom
-                        >
-                            Available Spaces
-                        </Typography>
-                        <Stack
-                            sx={{ pt: 4 }}
-                            direction="row"
-                            spacing={2}
-                            justifyContent="center"
-                        >
-                        </Stack>
-                    </Container>
-                </Box>
-                <Container sx={{ py: 8 }} maxWidth="md">
-                    <Grid container spacing={4}>
-                        {spaces.map((space) => (
-                            <Grid item key={space.id} xs={12} sm={6} md={3}>
-                                <Card
-                                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                                >
-                                    <CardMedia
-                                        component="div"
-                                        sx={{
-                                            // 16:9
-                                            pt: '56.25%',
-                                        }}
-                                        image="https://source.unsplash.com/random?wallpapers"
-                                    />
-                                    <CardContent sx={{ flexGrow: 1 }}>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            Space - {space.spaceName}
-                                        </Typography>
-                                        <Typography gutterBottom variant="h5" component="h3">
-                                            Building - {space.buildingName}, Room {space.spaceNumber}
-                                        </Typography>
-                                        <Typography>
-                                            Classification - {space.classification}, Network - {space.netWork}
-                                        </Typography>
-                                        <Typography>
-                                            Seating - {space.seating}, Trainer - {space.isTrainer ? "Yes" : "No"}
-                                        </Typography>
-                                        <Typography>
-                                            Equipment - {space.equipment}
-                                        </Typography>
-                                    </CardContent>
-                                    { !currentUser.guest ?
-                                    <CardActions>
-                                        <Stack direction="column" spacing={1}>
-                                            <Button size="small" onClick={() => {navigate(`/${currentUser.id}/Reservations/${space.id}`)}}>Book this Room!</Button>
-                                        </Stack>
-                                    </CardActions>
-                                    : null }
-                                </Card>
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Container>
-            </main>
-        </ThemeProvider>
-    ) : <span>The space data was not retrieved.</span>;
-}
+                    image={`https://source.unsplash.com/random?wallpapers&id=${space.id}`}
+                  />
+                  <Box sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center', marginLeft: '16px' }}>
+                    <CardContent sx={{ padding: '16px' }}>
+                      <Typography gutterBottom variant="h5" component="h2" fontWeight='fontWeightBold'>
+                        {capitalizeFirstLetter(space.spaceName)}
+                      </Typography>
+                      <Typography>
+                        <Box component="span" fontWeight='fontWeightBold'>Meeting Space:</Box> {space.id}
+                      </Typography>
+                      <Typography>
+                        <Box component="span" fontWeight='fontWeightBold'>Building Name:</Box> {space.buildingName}
+                      </Typography>
+                      <Typography>
+                        <Box component="span" fontWeight='fontWeightBold'>Building Number:</Box> {space.buildingNumber}
+                      </Typography>
+                      <Typography>
+                        <Box component="span" fontWeight='fontWeightBold'>Space Number:</Box> {space.spaceNumber}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Stack direction="column" spacing={1}>
+                      <Link to={`/Spaces/${space.id}`} underline="none">
+                        <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
+                        </Link>
+                        { currentUser.isAdmin ?
+                        <Link to={`/${currentUser.id}/spaces/EditReservation/${space.id}`} style={{ textDecoration: 'none' }}>
+                        <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
+                        </Link>
+                        : null }
+                      </Stack>
+                    </CardActions>
+                  </Box>
+                </Card>
+                </Link>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+        </Paper>
+      </main>
+    </ThemeProvider>
+  )
+};

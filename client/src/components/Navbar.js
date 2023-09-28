@@ -25,7 +25,7 @@ import LogoutButton from './LogoutButton';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUserContext } from './UserContext';
 import ReservationsMenu from './ReservationsDropDown';
-import RoomsMenu from './RoomsDropDown';
+import SpacesMenu from './SpacesDropDown';
 import UsersMenu from './UsersDropDown';
 
 const pages = [
@@ -148,11 +148,11 @@ function ResponsiveAppBar() {
                                     textDecoration: 'none',
                                 }}
                             >
-                                SpaceTime Collaborators
+                                SpaceTime
                             </Typography>
                         </Link>
                         <ReservationsMenu />
-                        <RoomsMenu />
+                        <SpacesMenu />
                         {isAuthenticated && currentUser.isAdmin ? <UsersMenu /> : null}
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (

@@ -12,14 +12,12 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-// import Link from '@mui/material/Link';
 import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
 import { useThemeContext } from './ThemeContext';
 import { useUserContext} from "./UserContext";
-import { useParams } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -43,7 +41,6 @@ export default function LandingPage() {
   const [reservations, setReservations] = useState([]);
   const { themeMode, capitalizeFirstLetter } = useThemeContext();
   const { currentUser } = useUserContext();
-  const { id } = useParams();
 
   useEffect(() => {
     fetchReservations(setReservations);
@@ -54,7 +51,7 @@ export default function LandingPage() {
       <CssBaseline />
       <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
         <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
-          Upcoming Reservations
+        Welcome to SpaceTime!
         </Typography>
       </AppBar>
       <main>
@@ -76,10 +73,10 @@ export default function LandingPage() {
               gutterBottom
               sx={{ fontWeight: 600 }}
             >
-              Upcoming Reservations
+              Welcome to SpaceTime!
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Below are reservations that are coming up soon! Book now to lock in your SpaceTime!
+              Upcoming reservations are provided below. Login or Sign Up to reserve your SpaceTime!
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -95,7 +92,7 @@ export default function LandingPage() {
           <Grid container spacing={4}>
             {reservations.map((reservation) => (
               <Grid item key={reservation.id} xs={12}>
-                <Link to={`/${currentUser}/reservationdetails/${reservation.id}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/Reservations/${reservation.id}`} style={{ textDecoration: 'none' }}>
                 <Card sx={{
                   display: 'flex',
                   flexDirection: 'row',
@@ -122,6 +119,9 @@ export default function LandingPage() {
                         {capitalizeFirstLetter(reservation.meetingName)}
                       </Typography>
                       <Typography>
+                        <Box component="span" fontWeight='fontWeightBold'>Meeting Space:</Box> {reservation.spaceId}
+                      </Typography>
+                      <Typography>
                         <Box component="span" fontWeight='fontWeightBold'>Description:</Box> {reservation.meetingDescription}
                       </Typography>
                       <Typography>
@@ -137,7 +137,7 @@ export default function LandingPage() {
                         <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
                         </Link>
                         { currentUser.isAdmin ?
-                        <Link to={`/${currentUser.id}/Reservations/editReservation/${reservation.id}`} style={{ textDecoration: 'none' }}>
+                        <Link to={`/${currentUser.id}/Reservations/EditReservation/${reservation.id}`} style={{ textDecoration: 'none' }}>
                         <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
                         </Link>
                         : null }

@@ -31,10 +31,10 @@ export default function RoomsMenu() {
                 onClick={handleClick}
                 color='inherit'
             >
-                Rooms
+                Spaces
             </Button>
             <Menu
-                id="rooms-menu"
+                id="spaces-menu"
                 MenuListProps={{
                     'aria-labelledby': 'fade-button',
                 }}
