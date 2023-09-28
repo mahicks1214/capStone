@@ -14,7 +14,8 @@ import CreateSpace from './components/CreateSpace';
 import DeleteSpace from './components/DeleteSpace';
 import UpdateSpace from './components/UpdateSpace';
 import Reservations from './components/Reservations';
-import ViewReservations from './components/ViewReservations'
+import ViewReservations from './components/ViewReservations';
+import CreateReservation from "./components/CreateReservation";
 import ReservationDetails from './components/ReservationDetails';
 import UpdateReservation from './components/UpdateReservation';
 import ViewUsers from './components/ViewUsers'; 
@@ -62,7 +63,7 @@ function App() {
 
           {/* ---------- Reservation Routes ---------- */}
           <Route path="/:userId/Reservations" element={<AuthenticationGuard component={ViewReservations} />} />
-          <Route path="/:userId/Reservations/ManageReservations" element={<AuthenticationGuard component={Reservations} />} />
+          <Route path="/:userId/Reservations/CreateReservation/:spaceId" element={<AuthenticationGuard component={CreateReservation} />} />
           <Route path="/:userId/Reservations/EditReservation/:reservationId" element={<AuthenticationGuard component={UpdateReservation} />} />
           <Route path="/:userId/Reservations/:spaceId" element={<AuthenticationGuard component={Reservations} />} />        
           <Route path="/:userId/Reservations/:reservationId" element={<AuthenticationGuard component={ReservationDetails} />} />

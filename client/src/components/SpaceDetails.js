@@ -18,14 +18,34 @@ import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
 import { useThemeContext } from './ThemeContext';
 import { useUserContext} from "./UserContext";
-import EditIcon from '@mui/icons-material/Edit';
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 
+function deleteSpace(id, spaceId, navigate, setDataReceived) {
+  fetch(`http://localhost:8080/reservations/${spaceId}/delete`, {
+      method: "DELETE",
+  })
+      .then((response) => {
+      fetch(`http://localhost:8080/spaces/delete/${id}`, {
+          method: "DELETE",
+      });
+      })
+      .then((response) => {
+      setDataReceived(true);
+      navigate(`/${spaceId}/Spaces`);
+      });
+  }
 
 export default function SpaceDetails() {
   const [spaces, setSpaces] = useState([]);
   const { themeMode, capitalizeFirstLetter } = useThemeContext();
   const { currentUser } = useUserContext();
   const { spaceId } = useParams();
+
+  const [user, setUser] = useState([]);
+  const [dataReceived, setDataReceived] = useState(false);
+  const navigate = useNavigate();
 
   function fetchSpaces(setSpaces) {
     fetch(`http://localhost:8080/spaces/${spaceId}`)
@@ -145,8 +165,13 @@ export default function SpaceDetails() {
                     <CardActions>
                       <Stack direction="column" spacing={1}>
                         { currentUser.isAdmin ?
-                        <Link to={`/${currentUser.id}/spaces/EditReservation/${spaces.spacesId}`} style={{ textDecoration: 'none' }}>
-                        <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
+                        <Link to={`/${currentUser.id}/Reservations/CreateReservation/${spaces.id}`} style={{ textDecoration: 'none' }}>
+                          <Button startIcon={<PostAddIcon />} size="small" variant="contained" color={themeMode === "dark" ? "secondary" : "primary"}>Book!</Button>
+                        </Link>
+                        : null }
+                        { currentUser.isAdmin ?
+                        <Link to={`/${currentUser.id}/Spaces/`} style={{ textDecoration: 'none' }}>
+                          <Button startIcon={<DeleteIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => {deleteSpace(user.id, currentUser.id, navigate, setDataReceived)}}>Delete</Button>
                         </Link>
                         : null }
                       </Stack>

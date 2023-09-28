@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
 import Paper from '@mui/material/Paper';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
@@ -18,8 +19,8 @@ import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
 import { useThemeContext } from './ThemeContext';
 import { useUserContext} from "./UserContext";
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 function fetchReservations(setReservations) {
   fetch('http://localhost:8080/spaces')
@@ -37,10 +38,12 @@ function fetchReservations(setReservations) {
     });
 }
 
-export default function LandingPage() {
+export default function Spaces() {
   const [spaces, setReservations] = useState([]);
   const { themeMode, capitalizeFirstLetter } = useThemeContext();
   const { currentUser } = useUserContext();
+  // Brought-in Auth0 context
+  const { isAuthenticated } = useAuth0();
 
   useEffect(() => {
     fetchReservations(setReservations);
@@ -133,12 +136,14 @@ export default function LandingPage() {
                     </CardContent>
                     <CardActions>
                       <Stack direction="column" spacing={1}>
-                      <Link to={`/Spaces/${space.id}`} underline="none">
-                        <Button startIcon={<VisibilityIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>View</Button>
-                        </Link>
                         { currentUser.isAdmin ?
-                        <Link to={`/${currentUser.id}/spaces/EditReservation/${space.id}`} style={{ textDecoration: 'none' }}>
-                        <Button startIcon={<EditIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
+                        <Link to={`/${currentUser.id}/Spaces/${space.id}`} style={{ textDecoration: 'none' }}>
+                          <Button startIcon={<EditIcon />} size="small" variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"}>Edit</Button>
+                        </Link>
+                        : null }
+                        { isAuthenticated ?
+                        <Link to={`/${currentUser.id}/Reservations/CreateReservation/${space.id}`} style={{ textDecoration: 'none' }}>
+                          <Button startIcon={<PostAddIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"}>Book!</Button>
                         </Link>
                         : null }
                       </Stack>

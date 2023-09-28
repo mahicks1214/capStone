@@ -22,7 +22,7 @@ export default function ReservationsMenu() {
     };
 
     return (
-        <div>
+        <>
             <Button
                 id="fade-button"
                 aria-controls={open ? 'fade-menu' : undefined}
@@ -48,6 +48,6 @@ export default function ReservationsMenu() {
                     <MenuItem component={Link} to={`/${currentUser.id}/Reservations`} onClick={handleClose}>My Reservations</MenuItem>
                     : null}
             </Menu>
-        </div>
+        </>
     );
 }
