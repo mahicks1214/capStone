@@ -78,7 +78,7 @@ export default function LandingPage() {
 
             {currentUser.isAdmin ?
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              View or Edit your SpaceTime reservations below!
+              View, edit, or delete your SpaceTime reservations below!
             </Typography>
             :
             <Typography variant="h5" align="center" color="text.secondary" paragraph>

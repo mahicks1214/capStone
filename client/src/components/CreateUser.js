@@ -78,7 +78,7 @@ export default function CreateUser() {
             <CssBaseline />
             <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
                 <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
-                    Add User
+                    Create User
                 </Typography>
             </AppBar>
             <Box sx={{ flexGrow: 1 }}>
@@ -102,7 +102,7 @@ export default function CreateUser() {
                                             height: 50,
                                         }}>
                                         <center>
-                                            <h2>Create a new Account</h2>
+                                            <h2>Create new user</h2>
                                         </center>
                                     </Box>
                                     <Box
@@ -130,7 +130,7 @@ export default function CreateUser() {
                                                 margin="normal"
                                                 type="submit"
                                                 color={themeMode === "dark" ? "primary" : "secondary"}
-                                            >Add User</Button>
+                                            >Create User</Button>
                                         </Box>
                                     </Box>
                                 </Grid>

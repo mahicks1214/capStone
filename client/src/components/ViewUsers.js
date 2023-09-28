@@ -12,7 +12,6 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
 import DefaultTheme from './DefaultTheme';
 import DarkTheme from './DarkTheme';
@@ -69,7 +68,7 @@ export default function ViewUsers() {
       <CssBaseline />
       <AppBar position="sticky" color={themeMode === "dark" ? "primary" : "secondary"}>
         <Typography sx="" variant="h6" color="inherit" align="left" noWrap>
-          View Users
+          Active Users
         </Typography>
       </AppBar>
       <main>
@@ -81,7 +80,7 @@ export default function ViewUsers() {
             pb: 0,
           }}
         >
-          <Container bgcolor='background.paper' maxWidth="sm">
+          <Container bgcolor='background.paper' maxWidth="lg">
             <Typography
               component="h1"
               variant="h2"
@@ -90,7 +89,10 @@ export default function ViewUsers() {
               gutterBottom
               sx={{ fontWeight: 600 }}
             >
-              Users
+              Active Users
+            </Typography>
+            <Typography variant="h5" align="center" color="text.secondary" paragraph>
+              View, edit, or delete active users below!
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -101,7 +103,7 @@ export default function ViewUsers() {
             </Stack>
           </Container>
         </Box>
-        <Container sx={{ bgcolor: 'background.paper', py: 8 }} maxWidth="md">
+        <Container sx={{ bgcolor: 'background.paper', py: 8 }} maxWidth="lg">
           <Grid container spacing={4}>
             {users.map((user) => (
               
@@ -134,19 +136,19 @@ export default function ViewUsers() {
                         {user.userName}
                       </Typography>
                       <Typography>
-                        First Name - {user.firstName}
+                        <Box component="span" fontWeight='fontWeightBold'>First Name:</Box> {user.firstName}
                       </Typography>
                       <Typography>
-                        Last Name - {user.lastName}
+                      <Box component="span" fontWeight='fontWeightBold'>Last Name:</Box> {user.lastName}
                       </Typography>
                       <Typography>
-                        Email - {user.email}
+                      <Box component="span" fontWeight='fontWeightBold'>Email:</Box> {user.email}
                       </Typography>
                       <Typography>
-                        Rank - {user.rank}
+                      <Box component="span" fontWeight='fontWeightBold'>Title:</Box> {user.rank}
                       </Typography>
                       <Typography>
-                        Admin - {user.isAdmin.toString()}
+                      <Box component="span" fontWeight='fontWeightBold'>Admin:</Box> {user.isAdmin ? 'Yes' : 'No'}
                       </Typography>
                     </CardContent>
                     <CardActions>
