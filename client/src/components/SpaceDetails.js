@@ -15,7 +15,7 @@ import { Link as RouterLink, useParams } from 'react-router-dom';
 
 
 function fetchReservations(setSpaces) {
-    fetch('http://localhost:8081/spaces/:id')
+    fetch('http://localhost:8080/spaces/:id')
         .then((response) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

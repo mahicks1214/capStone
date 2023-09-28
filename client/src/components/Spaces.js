@@ -119,7 +119,7 @@ export default function LandingPage() {
                         {capitalizeFirstLetter(space.spaceName)}
                       </Typography>
                       <Typography>
-                        <Box component="span" fontWeight='fontWeightBold'>Meeting Space:</Box> {space.id}
+                        <Box component="span" fontWeight='fontWeightBold'>Meeting ID:</Box> {space.id}
                       </Typography>
                       <Typography>
                         <Box component="span" fontWeight='fontWeightBold'>Building Name:</Box> {space.buildingName}
@@ -128,7 +128,7 @@ export default function LandingPage() {
                         <Box component="span" fontWeight='fontWeightBold'>Building Number:</Box> {space.buildingNumber}
                       </Typography>
                       <Typography>
-                        <Box component="span" fontWeight='fontWeightBold'>Space Number:</Box> {space.spaceNumber}
+                        <Box component="span" fontWeight='fontWeightBold'>Meeting Space:</Box> {space.spaceNumber}
                       </Typography>
                     </CardContent>
                     <CardActions>

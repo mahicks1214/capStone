@@ -44,6 +44,7 @@ function App() {
           {/* ---------- Root Route ----------- */}
           <Route path="/" element={<LandingPage />}/>
           <Route path="/Spaces" element={<Spaces />} />
+          <Route path="/Spaces/:spaceId" element={<Spaces />} />
           <Route path="/Reservations" element={<Reservations />} />
           <Route path="/Reservations/:reservationId" element={<ReservationDetails />} />
 

@@ -33,7 +33,7 @@ const pages = [
     // <Link to="/:userId/reservations/:roomId" style={{ textDecoration: "none", color: "inherit" }}>Reservations</Link>,
     // <Link to="/:userId/rooms" style={{ textDecoration: "none", color: "inherit" }}>Rooms</Link>,
     // <Link to="/:userId/admin" style={{ textDecoration: "none", color: "inherit" }}>Users</Link>,
-    <Link to="/credits/" style={{ textDecoration: "none", color: "inherit" }}>Credits</Link>
+    <Link to="/Credits" style={{ textDecoration: "none", color: "inherit" }}>Credits</Link>
 ];
 
 function ResponsiveAppBar() {
