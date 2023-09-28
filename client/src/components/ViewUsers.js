@@ -22,7 +22,7 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from './UserContext';
 
-function deleteUser(id, navigate, setDataReceived) {
+function deleteUser(id, userId, navigate, setDataReceived) {
 fetch(`http://localhost:8080/reservations/${id}/delete`, {
     method: "DELETE",
 })
@@ -33,7 +33,7 @@ fetch(`http://localhost:8080/reservations/${id}/delete`, {
     })
     .then((response) => {
     setDataReceived(true);
-    navigate("/users");
+    navigate(`/${userId}/Users`);
     });
 }
 
@@ -152,8 +152,8 @@ export default function ViewUsers() {
                     <CardActions>
                     { currentUser.id !== user.id ?
                       <Stack direction="column" spacing={1}>
-                        <Button startIcon={<EditIcon />} size="small" sx={{width: "100px"}} variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => {navigate(`/users/${user.id}/edit`)}}>Edit</Button>
-                        <Button startIcon={<PersonRemoveIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => {deleteUser(user.id, navigate, setDataReceived)}}>Delete</Button>
+                        <Button startIcon={<EditIcon />} size="small" sx={{width: "100px"}} variant="outlined" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => {navigate(`/${user.id}/Users/Update`)}}>Edit</Button>
+                        <Button startIcon={<PersonRemoveIcon />} size="small" variant="contained" color={themeMode === "dark" ? "primary" : "secondary"} onClick={() => {deleteUser(user.id, currentUser.id, navigate, setDataReceived)}}>Delete</Button>
                       </Stack>                      
                     : null }
                     </CardActions>

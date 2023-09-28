@@ -67,10 +67,10 @@ export default function UpdateUser() {
                 return rawResponse.json();
             })
             .then((response) => {
-                navigate("/users");
+                navigate(`/${userId}/Users`);
             })
             .catch((error) => {
-                navigate("/users");
+                navigate(`/${userId}/Users`);
             });
 
     };

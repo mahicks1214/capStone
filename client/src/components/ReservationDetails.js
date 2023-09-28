@@ -13,6 +13,7 @@ import DarkTheme from './DarkTheme';
 import { useThemeContext } from './ThemeContext';
 import { useParams, Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
+import { useUserContext } from './UserContext';
 
 function fetchReservationDetails(id, setReservationDetails) {
   fetch(`http://localhost:8080/reservations/${id}`)
@@ -39,6 +40,7 @@ function ReservationDetails() {
     const [reservationDetails, setReservationDetails] = useState(null);
     const { themeMode } = useThemeContext();
     const { reservationId } = useParams();
+    const { currentUser } = useUserContext();
   
     useEffect(() => {
       fetchReservationDetails(reservationId, setReservationDetails);
@@ -80,9 +82,11 @@ function ReservationDetails() {
                   </Typography>
                 </CardContent>
                 <CardActions>
+                  { currentUser.isAdmin ?
                   <Link to={`/editReservation/${reservationId}`}>
                     <Button startIcon={<EditIcon />} variant="contained" color="primary">Edit</Button>
                   </Link>
+                  : null }
                 </CardActions>
               </Card>
             </Container>

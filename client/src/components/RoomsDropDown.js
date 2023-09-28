@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import { Link } from 'react-router-dom';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUserContext } from './UserContext';
@@ -42,17 +43,10 @@ export default function RoomsMenu() {
                 onClose={handleClose}
                 TransitionComponent={Fade}
             >
-                {/* <Link to="/rooms"> */}
-                    <MenuItem onClick={handleClose}>View Rooms</MenuItem>
-                {/* </Link> */}
+                    <MenuItem component={Link} to="/Spaces" onClick={handleClose}>View Spaces</MenuItem>
                 {isAuthenticated && currentUser.isAdmin ?
-                    // <Link to="/rooms/add">
-                        <MenuItem onClick={handleClose}>Add Room</MenuItem>
-                    // </Link>
+                        <MenuItem component={Link} to={`/${currentUser.id}/Spaces/Create`} onClick={handleClose}>Add Space</MenuItem>
                     : null}
-                { /* These are handled within "/rooms" as administrator*/ }
-                {isAuthenticated && currentUser.isAdmin ? <MenuItem href="/rooms/:spaceid/edit" onClick={handleClose}>Edit Room</MenuItem> : null}
-                {isAuthenticated && currentUser.isAdmin ? <MenuItem href="/rooms/:spaceid/delete" onClick={handleClose}>Delete Room</MenuItem> : null}
             </Menu>
         </div>
     );

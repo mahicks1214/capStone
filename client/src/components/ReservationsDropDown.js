@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import { Link } from 'react-router-dom';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUserContext } from './UserContext';
@@ -42,22 +43,10 @@ export default function ReservationsMenu() {
                 onClose={handleClose}
                 TransitionComponent={Fade}
             >
-                {/* <Link to="/reservations"> */}
-                    <MenuItem onClick={handleClose}>View Reservations</MenuItem>
-                {/* </Link> */}
+                    <MenuItem component={Link} to="/Reservations" onClick={handleClose}>View Reservations</MenuItem>
                 {isAuthenticated ?
-                    // <Link to={`/users/${currentUser.id}/reservations`}>
-                        <MenuItem onClick={handleClose}>My Reservations</MenuItem>
-                    // </Link>
+                    <MenuItem component={Link} to={`/${currentUser.id}/Reservations`} onClick={handleClose}>My Reservations</MenuItem>
                     : null}
-                {isAuthenticated ?
-                    // <Link to="/rooms">
-                        <MenuItem onClick={handleClose}>Add Reservation</MenuItem>
-                    // </Link>
-                    : null}
-                { /* These are handled within "/users/${currentUser.id}/reservations" as user or administrator*/ }
-                {isAuthenticated ? <MenuItem href="/users/:userid/reservations/:id/edit" onClick={handleClose}>Edit Reservation</MenuItem> : null}
-                {isAuthenticated ? <MenuItem href="/users/:userid/reservations/:id/delete"  onClick={handleClose}>Delete Reservation</MenuItem> : null}
             </Menu>
         </div>
     );
